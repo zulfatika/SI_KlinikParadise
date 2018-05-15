@@ -19,6 +19,16 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('dokter','DokterController');
+
+Route::resource('poli','PoliController');
+
+Route::resource('jadwal','JadwalController');
+
+Route::resource('pegawai','PegawaiController');
+
+Route::resource('antrian','AntrianController');
+
+

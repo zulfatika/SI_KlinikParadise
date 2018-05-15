@@ -6,10 +6,10 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheet/bootstrap";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
-@import "~AdminLTE/dist/css/AdminLTE.css";
-@import "~AdminLTE/dist/css/skins/_all-skins.css";
+@import "~admin-lte/dist/css/AdminLTE.css";
+@import "~admin-lte/dist/css/skins/_all-skins.css";
 
 .navbar-laravel {
   background-color: #fff;

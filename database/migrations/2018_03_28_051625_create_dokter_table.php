@@ -15,11 +15,10 @@ class CreateDokterTable extends Migration
     {
         Schema::create('dokter', function (Blueprint $table) {
             $table->increments('id_dokter');
+            $table->integer('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('users');
             $table->string('sip_dokter', '100')->unique();
-            $table->string('username','100')->unique();
-            $table->string('nama_dokter', '100');
-            $table->text('password');
-            $table->string('token', '200');
+            $table->string('token', '200')->nullable();
             $table->text('alamat');
             $table->string('jenis_kelamin', '1');
             $table->string('no_telp','20');
@@ -38,6 +37,6 @@ class CreateDokterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dokter');
+        Schema::dropIfExists('admin');
     }
 }

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{csrf_token()}}">
 
-    <title>AdminLTE 2 | Starter</title>
+    <title>Klinik Paradise</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/font-awesome/css/font-awesome.min.css')}}">
@@ -16,7 +15,7 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" id="app">
 
     <!-- Main Header -->
     <header class="main-header">
@@ -24,9 +23,9 @@
         <!-- Logo -->
         <a href="index2.html" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
+            <span class="logo-mini"><b>K</b>P</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Admin</b>LTE</span>
+            <span class="logo-lg"><b>Klinik</b>Paradise</span>
         </a>
 
         <!-- Header Navbar -->
@@ -139,18 +138,18 @@
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <img src="{{asset('image/avatar5.png')}}" class="user-image" alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs">Alexander Pierce</span>
+                            <span class="hidden-xs">{{Auth::user()->name}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <img src="{{asset('image/avatar5.png')}}" class="img-circle" alt="User Image">
 
                                 <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2012</small>
+                                    {{Auth::user()->name}}
+                                    <small>Member since Nov. 2018</small>
                                 </p>
                             </li>
                             <!-- Menu Body -->
@@ -174,7 +173,11 @@
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a class="btn btn-default btn-flat" href="{{route('logout')}}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">Sign Out</a>
+                                    <form id="logout-form" action="{{route('logout')}}" method="POST" style="display:none;">
+                                        {{csrf_field()}}
+                                    </form>
                                 </div>
                             </li>
                         </ul>
@@ -196,10 +199,10 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="{{asset('image/avatar5.png')}}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>Alexander Pierce</p>
+                    <p>{{Auth::user()->name}}</p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
@@ -219,21 +222,43 @@
 
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu" data-widget="tree">
+                @role('admin')
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-                <li><a href="#"><i class="fa fa-pencil"></i> <span>Another Link</span></a></li>
+                <li class="active"><a href="{{url('/home')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                <li class="#"><a href="{{url('antrian')}}"><i class="fa fa-link"></i> <span>Antrian</span></a></li>
+                <li><a href="#"><i class="fa fa-pencil"></i> <span>Rekam Medis</span></a></li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                        <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+                    <a href="#"><i class="fa fa-link"></i> <span>Data Klinik</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Link in level 2</a></li>
-                        <li><a href="#">Link in level 2</a></li>
+                        <li><a href="{{url('poli')}}">Data Poli</a></li>
+                        <li><a href="{{url('jadwal')}}">Data Jadwal</a></li>
+                        <li><a href="{{url('dokter')}}">Data Dokter</a></li>
+                        <li><a href="{{url('pegawai')}}">Data Pegawai</a></li>
                     </ul>
                 </li>
+                @endrole
+
+                @role('user_pegawai')
+                <li class="header">HEADER</li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="active"><a href="{{url('antrian')}}"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
+                <li><a href="#"><i class="fa fa-pencil"></i> <span>Rekam Medis</span></a></li>
+                <li class="#"><a href="{{url('pasien')}}"><i class="fa fa-link"></i> <span>Data Pasien</span></a></li>
+                <li class="#"><a href="{{url('dokter')}}"><i class="fa fa-link"></i> <span>Data Dokter</span></a></li>
+                <li class="#"><a href="{{url('jadwal')}}"><i class="fa fa-link"></i> <span>Jadwal</span></a></li>
+                @endrole
+
+                @role('user_dokter')
+                <li class="header">HEADER</li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="active"><a href="{{url('jadwal')}}"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
+                <li><a href="#"><i class="fa fa-pencil"></i> <span>Rekam Medis</span></a></li>
+                <li class="#"><a href="{{url('pasien')}}"><i class="fa fa-link"></i> <span>Data Pasien</span></a></li>
+                <li class="#"><a href="{{url('obat')}}"><i class="fa fa-link"></i> <span>Daftar Obat</span></a></li>
+                @endrole
             </ul>
             <!-- /.sidebar-menu -->
         </section>
@@ -242,7 +267,7 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
+        <!-- Content Header (Page header) --
         <section class="content-header">
             <h1>
                 Page Header
@@ -256,11 +281,10 @@
 
         <!-- Main content -->
         <section class="content container-fluid">
-
             <!--------------------------
               | Your Page Content Here |
               -------------------------->
-
+            @yield('content')
         </section>
         <!-- /.content -->
     </div>
@@ -273,7 +297,7 @@
             Anything you want
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2018 <a href="#">Company</a>.</strong> All rights reserved.
     </footer>
 
     <!-- Control Sidebar -->
@@ -378,6 +402,118 @@
 <script>$(document).ready(function(){
             $('.sidebar-menu').tree()
         })
+</script>
+
+<script>
+    $('#edit').on('show.bs.modal', function (event) {
+
+        var button = $(event.relatedTarget) // Button that triggered the modal
+
+        //DOKTER
+        var sip_dokter = button.data('mysip_dokter') // Extract info from data-* attributes
+        var username = button.data('myusername')
+        var name = button.data('myname')
+        var password = button.data('mypassword')
+        var alamat = button.data('myalamat')
+        var jenis_kelamin = button.data('myjenis_kelamin')
+        var no_telp = button.data('myno_telp')
+        var id_poli = button.data('myid_poli')
+        var id_jadwal = button.data('myid_jadwal')
+        var dok_id = button.data('dokid')
+
+        //PEGAWAI
+        var username = button.data('myusername')
+        var name = button.data('myname')
+        var password = button.data('mypassword')
+        var alamat = button.data('myalamat')
+        var jenis_kelamin = button.data('myjenis_kelamin')
+        var no_telp = button.data('myno_telp')
+        var id_pegawai = button.data('idpegawai')
+
+        //POLI
+        var nama_poli = button.data('mynama_poli') // Extract info from data-* attributes
+        var keterangan = button.data('myketerangan')
+        var id_poli = button.data('idpoli')
+
+        //JADWAL
+        var shift_praktek = button.data('myshift_praktek') // Extract info from data-* attributes
+        var hari_praktek = button.data('myhari_praktek')
+        var jam_praktek = button.data('myjam_praktek')
+        var id_jadwal = button.data('idjadwal')
+
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
+        var modal = $(this)
+
+        //DOKTER
+        modal.find('.modal-body #sip_dokter').val(sip_dokter);
+        modal.find('.modal-body #username').val(username);
+        modal.find('.modal-body #name').val(name);
+        modal.find('.modal-body #password').val(password);
+        modal.find('.modal-body #alamat').val(alamat);
+        modal.find('.modal-body #jenis_kelamin').val(jenis_kelamin);
+        modal.find('.modal-body #no_telp').val(no_telp);
+        modal.find('.modal-body #id_poli').val(id_poli);
+        modal.find('.modal-body #id_jadwal').val(id_jadwal);
+        modal.find('.modal-body #dok_id').val(dok_id);
+
+        //PEGAWAI
+        modal.find('.modal-body #username').val(username);
+        modal.find('.modal-body #name').val(name);
+        modal.find('.modal-body #password').val(password);
+        modal.find('.modal-body #alamat').val(alamat);
+        modal.find('.modal-body #jenis_kelamin').val(jenis_kelamin);
+        modal.find('.modal-body #no_telp').val(no_telp);
+        modal.find('.modal-body #id_pegawai').val(id_pegawai);
+
+        //POLI
+        modal.find('.modal-body #nama_poli').val(nama_poli);
+        modal.find('.modal-body #keterangan').val(keterangan);
+        modal.find('.modal-body #id_poli').val(id_poli);
+        console.log
+
+        //JADWAL
+        modal.find('.modal-body #shift_praktek').val(shift_praktek);
+        modal.find('.modal-body #hari_praktek').val(hari_praktek);
+        modal.find('.modal-body #jam_praktek').val(jam_praktek);
+        modal.find('.modal-body #id_jadwal').val(id_jadwal);
+    })
+
+    $('#delete').on('show.bs.modal', function (event) {
+
+        var button = $(event.relatedTarget) // Button that triggered the modal
+
+        //DOKTER
+        var dok_id = button.data('dokid')
+
+        //PEGAWAI
+        var id_pegawai = button.data('idpegawai')
+
+        //POLI
+        var id_poli = button.data('idpoli')
+
+        //JADWAL
+        var id_jadwal = button.data('idjadwal')
+
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
+        var modal = $(this)
+
+        //DOKTER
+        modal.find('.modal-body #dok_id').val(dok_id);
+
+        //PEGAWAI
+        modal.find('.modal-body #id_pegawai').val(id_pegawai);
+
+        //POLI
+        modal.find('.modal-body #id_poli').val(id_poli);
+        console.log
+
+        //JADWAL
+        modal.find('.modal-body #id_jadwal').val(id_jadwal);
+    })
 </script>
 </body>
 </html>
