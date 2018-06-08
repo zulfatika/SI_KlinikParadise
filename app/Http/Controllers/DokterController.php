@@ -40,22 +40,22 @@ class DokterController extends Controller
     public function store(Request $request)
     {
         $user=User::create([
-            'username'=>$request->username,
-            'name'=>$request->name,
-            'password'=>Hash::make($request->password)
+            'username' => $request->username,
+            'name'     => $request->name,
+            'password' => Hash::make($request->password)
         ]);
 
         Dokter::create([
-            'id_user'=>$user->id,
-            'sip_dokter'=>$request->sip_dokter,
-            'alamat'=>$request->alamat,
-            'jenis_kelamin'=>$request->jenis_kelamin,
-            'no_telp'=>$request->no_telp,
-            'id_poli'=>$request->id_poli,
-            'id_jadwal'=>$request->id_jadwal
+            'id_user'       => $user -> id,
+            'sip_dokter'    => $request -> sip_dokter,
+            'alamat'        => $request -> alamat,
+            'jenis_kelamin' => $request -> jenis_kelamin,
+            'no_telp'       => $request -> no_telp,
+            'id_poli'       => $request -> id_poli,
+            'id_jadwal'     => $request -> id_jadwal
         ]);
-        $user->attachRole(Role::find(4));
-        $user->save();
+        $user -> attachRole(Role::find(2));
+        $user -> save();
         return back();
     }
 

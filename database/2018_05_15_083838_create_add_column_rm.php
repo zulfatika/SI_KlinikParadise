@@ -17,6 +17,8 @@ class CreateAddColumnRm extends Migration
         Schema::table('rm_pemeriksaan', function($table) {
             $table->integer('id_pasien')->after('id_dokter')->unsigned();
             $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->integer('id_pegawai')->after('id_pasien')->unsigned();
+            $table->foreign('id_pegawai')->references('id_pegawai')->on('pegawai');
         });
     }
 
@@ -30,6 +32,7 @@ class CreateAddColumnRm extends Migration
     {
         Schema::table('rm_pemeriksaan', function($table) {
             $table->dropColumn('id_pasien');
+            $table->dropColumn('id_pegawai');
         });
     }
 }

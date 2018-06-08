@@ -22,8 +22,9 @@ class CreateCekfisikTable extends Migration
             $table->string('spo2','50');
             $table->string('berat_bdn', '20');
             $table->string('tinggi_bdn','20');
-            $table->integer('id_antrian')->unsigned();
-            $table->foreign('id_antrian')->references('id_antrian')->on('antrian');
+            $table->integer('id_pasien')->unsigned();
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')
+                  ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -18,9 +18,11 @@ class CreatePemeriksaanlabTable extends Migration
             $table->string('hasil_kadar','50');
             $table->text('keterangan');
             $table->integer('id_jeniskadar')->unsigned();
-            $table->foreign('id_jeniskadar')->references('id_jeniskadar')->on('jenispemeriksaanlab');
-            $table->integer('id_antrian')->unsigned();
-            $table->foreign('id_antrian')->references('id_antrian')->on('antrian');
+            $table->foreign('id_jeniskadar')->references('id_jeniskadar')->on('jenispemeriksaanlab')
+                  ->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('id_pasien')->unsigned();
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')
+                  ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

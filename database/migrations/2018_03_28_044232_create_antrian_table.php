@@ -19,9 +19,11 @@ class CreateAntrianTable extends Migration
             $table->integer('urutan_antrian');
             $table->string('status_cek','1');
             $table->integer('id_pasien')->unsigned();
-            $table->foreign('id_pasien')->references('id_pasien')->on('pasien');
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')
+                  ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('id_poli')->unsigned();
-            $table->foreign('id_poli')->references('id_poli')->on('poli');
+            $table->foreign('id_poli')->references('id_poli')->on('poli')
+                  ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -26,7 +26,7 @@ class AntrianController extends Controller
     public function index()
     {
         //$antrian = Antrian::all();
-        return view('pegawai.index_dashboard',compact('antrian'));
+        return view('home',compact('antrian'));
     }
 
     /**
@@ -35,21 +35,33 @@ class AntrianController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    /**public function mulai_antrian()
+    public function ambil_antrian(Request $request)
     {
-        Antrian::create([
-            'tgl_periksa'=>date('Y-m-d H:i:s'),
-            'urutan_antrian'=>0,
-
+        $data = Antrian::create([
+            'tgl_periksa' => date('Y-m-d H:i:s'),
+            'status_cek'  => 0,
+            'id_pasien'   => $request -> id_pasien,
+            'id_poli'     => $request -> id_poli,
         ]);
+        if (sizeof($data)){
+            return response()->json([
+                'status' => 'OK',
+                'data'   => [
+                    'antrian' => $data -> id_antrian
+                ]
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'ERROR',
+                'data'   => "ANTRIAN TUTUP"
+            ]);
+        }
+    }
 
-        return back();
-    }
-    public function create()
-    {
-        //Antrian::all()->
-    }
-     */
+//    public function create()
+//    {
+//        //Antrian::all()->
+//    }
 
     /**
      * Store a newly created resource in storage.

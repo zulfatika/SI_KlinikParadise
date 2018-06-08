@@ -13,6 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::get('users', 'UsersController@users');
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
+});*/
+Route::post('pasien/register', 'AndroidUserController@register');
+
+Route::post('pasien/login', 'AndroidUserController@login');
+Route::get('getPoli', 'AndroidUserController@getPoli');
+Route::get('jadwal', 'AndroidUserController@getJadwal');
+Route::post('tambahAntrian', 'AndroidUserController@tambahAntrianBaru');

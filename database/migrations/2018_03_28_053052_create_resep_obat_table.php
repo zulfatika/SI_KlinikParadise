@@ -18,9 +18,11 @@ class CreateResepObatTable extends Migration
             $table->text('aturan_pakai');
             $table->text('keterangan');
             $table->integer('id_obat')->unsigned();
-            $table->foreign('id_obat')->references('id_obat')->on('obat');
+            $table->foreign('id_obat')->references('id_obat')->on('obat')
+                  ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('id_rm')->unsigned();
-            $table->foreign('id_rm')->references('id_rm')->on('rm_pemeriksaan');
+            $table->foreign('id_rm')->references('id_rm')->on('rm_pemeriksaan')
+                  ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

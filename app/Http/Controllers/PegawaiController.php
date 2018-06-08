@@ -58,7 +58,7 @@ class PegawaiController extends Controller
             'jenis_kelamin'=>$request->jenis_kelamin,
             'no_telp'=>$request->no_telp
         ]);
-        $user->attachRole(Role::find(5));
+        $user->attachRole(Role::find(3));
         $user->save();
         return back();
     }

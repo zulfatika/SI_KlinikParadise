@@ -21,9 +21,11 @@ class CreateRmPemeriksaanTable extends Migration
             $table->text('terapi');
             $table->string('status_cek','1');
             $table->integer('id_dokter')->unsigned();
-            $table->foreign('id_dokter')->references('id_dokter')->on('dokter');
-            $table->integer('id_antrian')->unsigned();
-            $table->foreign('id_antrian')->references('id_antrian')->on('antrian');
+            $table->foreign('id_dokter')->references('id_dokter')->on('dokter')
+                  ->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('id_pasien')->unsigned();
+            $table->foreign('id_pasien')->references('id_pasien')->on('pasien')
+                  ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -16,16 +16,19 @@ class CreateDokterTable extends Migration
         Schema::create('dokter', function (Blueprint $table) {
             $table->increments('id_dokter');
             $table->integer('id_user')->unsigned();
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_user')->references('id')->on('users')
+                  ->onUpdate('cascade')->onDelete('cascade');
             $table->string('sip_dokter', '100')->unique();
             $table->string('token', '200')->nullable();
             $table->text('alamat');
             $table->string('jenis_kelamin', '1');
             $table->string('no_telp','20');
             $table->integer('id_poli')->unsigned();
-            $table->foreign('id_poli')->references('id_poli')->on('poli');
+            $table->foreign('id_poli')->references('id_poli')->on('poli')
+                  ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('id_jadwal')->unsigned();
-            $table->foreign('id_jadwal')->references('id_jadwal')->on('jadwal_praktek');
+            $table->foreign('id_jadwal')->references('id_jadwal')->on('jadwal_praktek')
+                  ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
