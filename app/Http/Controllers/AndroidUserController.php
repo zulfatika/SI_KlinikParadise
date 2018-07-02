@@ -69,6 +69,7 @@ class AndroidUserController extends Controller
                 "jenis_kelamin"  => $jenis_kelamin,
                 "riwayat_alergi" => $riwayat_alergi
             ]);
+
         if($user){
             return response()->json([
                 "status" => 'OK'
@@ -116,7 +117,7 @@ class AndroidUserController extends Controller
     public function getJadwal(){
 //        $nik = $request->nik;
 //        $password = $request->password;
-        $data = DB::table('jadwal_praktek')
+        $data = DB::table('jadwal_klinik')
 //            ->where('nik', '=', $nik)
             ->select()
             ->get();
@@ -134,20 +135,60 @@ class AndroidUserController extends Controller
         }
     }
 
-    public function tambahAntrianBaru(Request $request){
-        $idPasien = $request->idPasien;
-        $tanggalPeriksa = $request->tanggalPeriksa;
-        $idPoli = $request->idPoli;
-        $statusCheck = 0;
+    public function statusAntrian(){
+        $data = DB::table('status_antrian')->first();
+        if(sizeof($data)==0){
+            return self::KLINIK_TUTUP;
+        }
+        return $data->status_cek;
+    }
 
-        $data = DB::table('antrian')->select()->where('tgl_periksa', 'like', $tanggalPeriksa)->get();
-        if (sizeof($data)) {
-            $urutan = sizeof($data) + 1;
-        }else {
-            $urutan = 1;
+    public function tambahAntrianBaru(Request $request){
+        // $status_antrian = DB::table('status_antrian')->select('status_cek')->orderByDesc('status_cek')->get();
+
+        if ($this->statusAntrian() == self::KLINIK_TUTUP){
+            return response()->json([
+                "status" => 'Antrian Sudah Ditutup'
+            ]);
+        }
+        else{
+            $idPasien = $request->idPasien;
+            $tanggalPeriksa = $request->tanggalPeriksa;
+            $idPoli = $request->idPoli;
+            $statusCheck = 0;
+
+            $last_antrian = DB::table('antrian')->select('id_poli')->where('id_poli', $idPoli)->get();
+            $jml = count($last_antrian);
+            $urutan = $jml + 1;
+
+            $cek = DB::table('antrian')->select('id_pasien')
+                ->where('id_pasien', $idPasien)
+                ->where('id_poli', $idPoli)
+                ->get();
+
+            $jumlahdata = count($cek);
+
+            if($jumlahdata != 0){
+                return response()->json([
+                    "status" => 'Tidak Boleh Antri Dua Kali'
+                ]);
+            }
+            else{
+                $user = DB::table('antrian')->insert([
+                    "tgl_periksa"       => $tanggalPeriksa,
+                    "urutan_antrian"    => $urutan,
+                    "status_cek"        => $statusCheck,
+                    "id_pasien"         => $idPasien,
+                    "id_poli"           => $idPoli
+                ]);
+
+                return response()->json([
+                    $user
+                ]);
+            }
         }
 
-        $user = DB::table('antrian')
+        /*$user = DB::table('antrian')
             ->insert([
                 "tgl_periksa"       => $tanggalPeriksa,
                 "urutan_antrian"    => $urutan,
@@ -163,6 +204,6 @@ class AndroidUserController extends Controller
             return response()->json([
                 "status" => 'ERROR'
             ]);
-        }
+        }*/
     }
 }

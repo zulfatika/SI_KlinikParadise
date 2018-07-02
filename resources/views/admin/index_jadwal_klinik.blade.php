@@ -1,29 +1,29 @@
 @extends('layouts.master')
 
 @section('content')
-    <h3>Data Jadwal</h3>
+    <h3>Data Jadwal Klinik</h3>
 
     <table class="table table-responsive">
         <thead>
         <tr>
-            <th>Shift Praktek</th>
-            <th>Hari Praktek</th>
-            <th>Jam Praktek</th>
+            <th>Shift Klinik</th>
+            <th>Jam Buka</th>
+            <th>Jam Tutup</th>
             <th>Modify</th>
         </tr>
         </thead>
 
         <tbody>
-        @foreach($jadwal as $jadwal)
+        @foreach($jadwalklinik as $jadwalklinik)
             <tr>
-                <td>{{$jadwal->shift_praktek}}</td>
-                <td>{{$jadwal->hari_praktek}}</td>
-                <td>{{$jadwal->jam_praktek}}</td>
+                <td>{{$jadwalklinik->shift_klinik}}</td>
+                <td>{{$jadwalklinik->jam_buka}}</td>
+                <td>{{$jadwalklinik->jam_tutup}}</td>
                 <td><button class="btn btn-info"
-                            data-myshift_praktek="{{$jadwal->shift_praktek}}" data-myhari_praktek="{{$jadwal->hari_praktek}}"
-                            data-myjam_praktek="{{$jadwal->jam_praktek}}" data-idjadwal ="{{$jadwal->id_jadwal}}"
+                            data-myshift_klinik="{{$jadwalklinik->shift_klinik}}" data-myjam_buka="{{$jadwalklinik->jam_buka}}"
+                            data-myjam_tutup="{{$jadwalklinik->jam_tutup}}" data-idjadwalklinik ="{{$jadwalklinik->id_jadwalklinik}}"
                             data-toggle="modal" data-target="#edit">Ubah</button>
-                    <button class="btn btn-danger" data-idjadwal ="{{$jadwal->id_jadwal}}" data-toggle="modal" data-target="#delete">Hapus</button>
+                    <button class="btn btn-danger" data-idjadwalklinik ="{{$jadwalklinik->id_jadwalklinik}}" data-toggle="modal" data-target="#delete">Hapus</button>
                 </td>
             </tr>
         @endforeach
@@ -40,12 +40,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title" id="myModalLabel">Tambah Data Jadwal</h3>
+                    <h3 class="modal-title" id="myModalLabel">Tambah Data Jadwal Klinik</h3>
                 </div>
-                <form action="{{route('jadwal.store')}}" method="post">
+                <form action="{{route('jadwalklinik.store')}}" method="post">
                     {{csrf_field()}}
                     <div class="modal-body">
-                        @include('admin.form_jadwal')
+                        @include('admin.form_jadwal_klinik')
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
@@ -62,14 +62,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title" id="myModalLabel">Ubah Data Jadwal</h3>
+                    <h3 class="modal-title" id="myModalLabel">Ubah Data Jadwal Klinik</h3>
                 </div>
-                <form action="{{route('jadwal.update','test')}}" method="post">
+                <form action="{{route('jadwalklinik.update','test')}}" method="post">
                     {{method_field('patch')}}
                     {{csrf_field()}}
                     <div class="modal-body">
-                        <input type="hidden" name="id_jadwal" id="id_jadwal" value="">
-                        @include('admin.form_jadwal')
+                        <input type="hidden" name="id_jadwalklinik" id="id_jadwalklinik" value="">
+                        @include('admin.form_jadwal_klinik')
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
@@ -86,16 +86,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title text-center" id="myModalLabel">Hapus Data Jadwal</h3>
+                    <h3 class="modal-title text-center" id="myModalLabel">Hapus Data Jadwal Klinik</h3>
                 </div>
-                <form action="{{route('jadwal.destroy','test')}}" method="post">
+                <form action="{{route('jadwalklinik.destroy','test')}}" method="post">
                     {{method_field('delete')}}
                     {{csrf_field()}}
                     <div class="modal-body">
                         <p class="text-center">
                             Apakah anda yakin ingin menghapus data ini?
                         </p>
-                        <input type="hidden" name="id_jadwal" id="id_jadwal" value="">
+                        <input type="hidden" name="id_jadwalklinik" id="id_jadwalklinik" value="">
 
                     </div>
                     <div class="modal-footer">

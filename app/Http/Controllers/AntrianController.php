@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\StatusAntrian;
 use Illuminate\Http\Request;
 use \App\Antrian;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +27,7 @@ class AntrianController extends Controller
     public function index()
     {
         //$antrian = Antrian::all();
-        return view('home',compact('antrian'));
+//        return view('/home');
     }
 
     /**
@@ -35,13 +36,14 @@ class AntrianController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function ambil_antrian(Request $request)
+
+    /*public function ambil_antrian(Request $request)
     {
         $data = Antrian::create([
             'tgl_periksa' => date('Y-m-d H:i:s'),
             'status_cek'  => 0,
-            'id_pasien'   => $request -> id_pasien,
-            'id_poli'     => $request -> id_poli,
+            'id_pasien'   => $request-> id_pasien,
+            'id_poli'     => $request-> id_poli,
         ]);
         if (sizeof($data)){
             return response()->json([
@@ -56,12 +58,45 @@ class AntrianController extends Controller
                 'data'   => "ANTRIAN TUTUP"
             ]);
         }
+    }*/
+
+
+    public function bukaAntrian(){
+        DB::table('antrian')->truncate();
+//        $data = Antrian::all()->first();
+        $data = StatusAntrian::all()->first();
+        if(sizeof($data)==0){
+            DB::table('status_antrian')->insert([
+                'status_cek'=>self::KLINIK_BUKA
+            ]);
+        }else{
+            DB::table('status_antrian')->update([
+                'status_cek'=>self::KLINIK_BUKA
+            ]);
+        }
+        return redirect()->back();
     }
 
-//    public function create()
-//    {
-//        //Antrian::all()->
-//    }
+    public function tutupAntrian(){
+        /* DB::table('antrian')->truncate();
+
+           $data = Antrian::all()->first();
+           if(sizeof($data)==0){
+             DB::table('status_antrian')->create([
+                 'status_cek'=>self::KLINIK_TUTUP
+             ]);
+           }else{*/
+        DB::table('status_antrian')->update([
+            'status_cek'=>self::KLINIK_TUTUP
+        ]);
+        // }
+        return redirect()->back();
+    }
+
+    public function create()
+    {
+        //Antrian::all()->
+    }
 
     /**
      * Store a newly created resource in storage.

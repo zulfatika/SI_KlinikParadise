@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/skins/_all-skins.min.css')}}">
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
 <div class="wrapper" id="app">
 
     <!-- Main Header -->
@@ -42,7 +42,7 @@
                         <!-- Menu toggle button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
+                            <span class="label label-info">4</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="header">You have 4 messages</li>
@@ -233,8 +233,9 @@
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="{{url('jadwalklinik')}}">Data Jadwal Klinik</a></li>
                         <li><a href="{{url('poli')}}">Data Poli</a></li>
-                        <li><a href="{{url('jadwal')}}">Data Jadwal</a></li>
+                        <li><a href="{{url('jadwal')}}">Data Jadwal Dokter</a></li>
                         <li><a href="{{url('dokter')}}">Data Dokter</a></li>
                         <li><a href="{{url('pegawai')}}">Data Pegawai</a></li>
                     </ul>
@@ -435,11 +436,17 @@
         var keterangan = button.data('myketerangan')
         var id_poli = button.data('idpoli')
 
-        //JADWAL
+        //JADWALDOKTER
         var shift_praktek = button.data('myshift_praktek') // Extract info from data-* attributes
         var hari_praktek = button.data('myhari_praktek')
         var jam_praktek = button.data('myjam_praktek')
         var id_jadwal = button.data('idjadwal')
+
+        //JADWALKLINIK
+        var shift_klinik = button.data('myshift_klinik') // Extract info from data-* attributes
+        var jam_buka = button.data('myjam_buka')
+        var jam_tutup = button.data('myjam_tutup')
+        var id_jadwalklinik = button.data('idjadwalklinik')
 
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -473,11 +480,17 @@
         modal.find('.modal-body #id_poli').val(id_poli);
         console.log
 
-        //JADWAL
+        //JADWALDOKTER
         modal.find('.modal-body #shift_praktek').val(shift_praktek);
         modal.find('.modal-body #hari_praktek').val(hari_praktek);
         modal.find('.modal-body #jam_praktek').val(jam_praktek);
         modal.find('.modal-body #id_jadwal').val(id_jadwal);
+
+        //JADWALKLINIK
+        modal.find('.modal-body #shift_klinik').val(shift_klinik);
+        modal.find('.modal-body #jam_buka').val(jam_buka);
+        modal.find('.modal-body #jam_tutup').val(jam_tutup);
+        modal.find('.modal-body #id_jadwalklinik').val(id_jadwalklinik);
     })
 
     $('#delete').on('show.bs.modal', function (event) {
@@ -493,8 +506,11 @@
         //POLI
         var id_poli = button.data('idpoli')
 
-        //JADWAL
+        //JADWALDOKTER
         var id_jadwal = button.data('idjadwal')
+
+        //JADWALKLINIK
+        var id_jadwalklinik = button.data('idjadwalklinik')
 
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -511,8 +527,11 @@
         modal.find('.modal-body #id_poli').val(id_poli);
         console.log
 
-        //JADWAL
+        //JADWALDOKTER
         modal.find('.modal-body #id_jadwal').val(id_jadwal);
+
+        //JADWALKLINIK
+        modal.find('.modal-body #id_jadwalklinik').val(id_jadwalklinik);
     })
 </script>
 </body>

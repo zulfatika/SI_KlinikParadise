@@ -9,5 +9,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
+    const KLINIK_BUKA = 1;
+    const KLINIK_TUTUP = 0;
+
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }

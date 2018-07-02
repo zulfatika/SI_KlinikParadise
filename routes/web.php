@@ -19,7 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('bukaAntrian','AntrianController@bukaAntrian');
+
+Route::get('tutupAntrian','AntrianController@tutupAntrian');
 
 Route::resource('dokter','DokterController');
 
@@ -29,6 +31,8 @@ Route::resource('jadwal','JadwalController');
 
 Route::resource('pegawai','PegawaiController');
 
-Route::resource('antrian','AntrianController');
+Route::resource('jadwalklinik','JadwalKlinikController');
+
+//Route::resource('antrian','AntrianController');
 
 
