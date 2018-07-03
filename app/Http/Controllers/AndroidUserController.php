@@ -45,6 +45,43 @@ class AndroidUserController extends Controller
         }
     }
 
+    public function updateProfile(Request $request){
+        $idProfile      = $request->idProfile;
+        $nama_pasien    = $request->nama_pasien;
+        $tempat_lahir   = $request->tempat_lahir;
+        $tgl_lahir      = $request->tgl_lahir;
+        $alamat         = $request->alamat;
+        $no_telp        = $request->no_telp;
+        $jenis_kelamin  = $request->jenis_kelamin;
+        $riwayat_alergi = $request->riwayat_alergi;
+
+        $user = DB::table('pasien')
+            ->where('id_pasien', $idProfile)
+            ->update([
+                "nama_pasien"    => $nama_pasien,
+                "tempat_lahir"   => $tempat_lahir,
+                "tgl_lahir"      => $tgl_lahir,
+                "alamat"         => $alamat,
+                "no_telp"        => $no_telp,
+                "jenis_kelamin"  => $jenis_kelamin,
+                "riwayat_alergi" => $riwayat_alergi
+            ]);
+
+        if($user){
+            return response()->json([
+                "status" => true,
+                "message" => "Update profile berhasil"
+            ]);  
+
+        }else{
+            return response()->json([
+                "status" => false,
+                "message" => "Update tidak berhasil"
+            ]);            
+        }
+    }
+
+
     public function tambahAntrian(Request $request){
         $nik            = $request->nik;
         $nama_pasien    = $request->nama_pasien;
@@ -148,7 +185,8 @@ class AndroidUserController extends Controller
 
         if ($this->statusAntrian() == self::KLINIK_TUTUP){
             return response()->json([
-                "status" => 'Antrian Sudah Ditutup'
+                "status" => false,
+                "message" => 'Antrian Sudah Ditutup'
             ]);
         }
         else{
@@ -170,7 +208,8 @@ class AndroidUserController extends Controller
 
             if($jumlahdata != 0){
                 return response()->json([
-                    "status" => 'Tidak Boleh Antri Dua Kali'
+                    "status" => false,
+                    "message" => 'Anda telah mengantri untuk poli ini'
                 ]);
             }
             else{
@@ -182,9 +221,18 @@ class AndroidUserController extends Controller
                     "id_poli"           => $idPoli
                 ]);
 
-                return response()->json([
-                    $user
-                ]);
+                if ($user) {
+                    return response()->json([
+                        "status" => true,
+                        "message" => 'Anda berhasil melakukan pemesanan'
+                    ]);
+                }else {
+                    return response()->json([
+                        "status" => false,
+                        "message" => 'Anda telah mengantri untuk poli ini'
+                    ]);
+                }
+                
             }
         }
 
@@ -205,5 +253,23 @@ class AndroidUserController extends Controller
                 "status" => 'ERROR'
             ]);
         }*/
+    }
+
+    public function profile(Request $request){
+        $idProfile = $request->idProfile;
+        $user = DB::table('pasien')->where('id_pasien', $idProfile);
+ 
+        if(sizeof($user->get())){
+            return response()->json([
+                "status" => true,
+                "data" => $user->get()
+            ]);
+
+        }else{
+            return response()->json([
+                "status" => false,
+                "message" => "User tidak ditemukan"
+            ]);
+        }
     }
 }

@@ -23,3 +23,6 @@ Route::post('pasien/login', 'AndroidUserController@login');
 Route::get('getPoli', 'AndroidUserController@getPoli');
 Route::get('jadwal', 'AndroidUserController@getJadwal');
 Route::post('tambahAntrian', 'AndroidUserController@tambahAntrianBaru');
+Route::post('profile', 'AndroidUserController@profile');
+Route::post('updateProfile', 'AndroidUserController@updateProfile');
+
