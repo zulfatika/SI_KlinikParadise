@@ -45,7 +45,7 @@
                     <div class="inner">
                         <h4>Poli Umum</h4>
                         <h3>0</h3>
-                        <h6>Jumlah Antrian : 0</h6>
+                        <h6>Jumlah Antrian : @if(isset($polis)){{$polis->sum(1)}}@else 0 @endif</h6>
                         <h6>Sisa Antrian : 0</h6>
                     </div>
 
@@ -91,10 +91,12 @@
         </div>
 
         <div class="row">
+            @if($polis)
+            @foreach($polis as $poli)
             <div class="col-lg-4 col-xs-6">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Antrian Poli Umum</h3>
+                        <h3 class="box-title">Antrian {{$poli->nama_poli}}</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -104,21 +106,24 @@
                                 <th>No. Antrian</th>
                                 <th>Status</th>
                             </tr>
+                            @if(empty($poli->antrian))
+                                <div class="panel">
+                                    <div class="panel-body panel-danger">Tidak Ada Antrian</div>
+                                </div>
+                                @else
+                                <?php $i=1;?>
+                            @foreach($poli->antrian as $val)
                             <tr>
-                                <td>1.</td>
-                                <td>1</td>
-                                <td><span class="label label-success">Sudah Dipanggil</span></td>
+                                <td>{{$i++}}.</td>
+                                <td>{{$val->urutan_antrian}}</td>
+                                <td>
+                                    @if($val->status_cek == 0)<span class="label label-danger">Belum Dipanggil</span>@endif
+                                        @if($val->status_cek == 1)<span class="label label-warning">Sedang Dipanggil</span>@endif
+                                        @if($val->status_cek == 2)<span class="label label-success">Sudah Dipanggil</span>@endif
+                                </td>
                             </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>3</td>
-                                <td><span class="label label-warning">Sedang Dipanggil</span></td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>4</td>
-                                <td><span class="label label-danger">Belum Dipanggil</span></td>
-                            </tr>
+                                @endforeach
+                            @endif
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -134,94 +139,8 @@
                 </div>
                 <!-- /.box -->
             </div>
-
-            <div class="col-lg-4 col-xs-6">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Antrian Poli Gigi</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>No. Antrian</th>
-                                <th>Status</th>
-                            </tr>
-                            <tr>
-                                <td>1.</td>
-                                <td>1</td>
-                                <td><span class="label label-success">Sudah Dipanggil</span></td>
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>3</td>
-                                <td><span class="label label-warning">Sedang Dipanggil</span></td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>4</td>
-                                <td><span class="label label-danger">Belum Dipanggil</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /.box -->
-            </div>
-
-            <div class="col-lg-4 col-xs-6">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Antrian Poli Kecantikan</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>No. Antrian</th>
-                                <th>Status</th>
-                            </tr>
-                            <tr>
-                                <td>1.</td>
-                                <td>1</td>
-                                <td><span class="label label-success">Sudah Dipanggil</span></td>
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>3</td>
-                                <td><span class="label label-warning">Sedang Dipanggil</span></td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>4</td>
-                                <td><span class="label label-danger">Belum Dipanggil</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /.box -->
-            </div>
+            @endforeach
+            @endif
         </div>
 
 

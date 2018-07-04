@@ -45,43 +45,6 @@ class AndroidUserController extends Controller
         }
     }
 
-    public function updateProfile(Request $request){
-        $idProfile      = $request->idProfile;
-        $nama_pasien    = $request->nama_pasien;
-        $tempat_lahir   = $request->tempat_lahir;
-        $tgl_lahir      = $request->tgl_lahir;
-        $alamat         = $request->alamat;
-        $no_telp        = $request->no_telp;
-        $jenis_kelamin  = $request->jenis_kelamin;
-        $riwayat_alergi = $request->riwayat_alergi;
-
-        $user = DB::table('pasien')
-            ->where('id_pasien', $idProfile)
-            ->update([
-                "nama_pasien"    => $nama_pasien,
-                "tempat_lahir"   => $tempat_lahir,
-                "tgl_lahir"      => $tgl_lahir,
-                "alamat"         => $alamat,
-                "no_telp"        => $no_telp,
-                "jenis_kelamin"  => $jenis_kelamin,
-                "riwayat_alergi" => $riwayat_alergi
-            ]);
-
-        if($user){
-            return response()->json([
-                "status" => true,
-                "message" => "Update profile berhasil"
-            ]);  
-
-        }else{
-            return response()->json([
-                "status" => false,
-                "message" => "Update tidak berhasil"
-            ]);            
-        }
-    }
-
-
     public function tambahAntrian(Request $request){
         $nik            = $request->nik;
         $nama_pasien    = $request->nama_pasien;
@@ -269,6 +232,42 @@ class AndroidUserController extends Controller
             return response()->json([
                 "status" => false,
                 "message" => "User tidak ditemukan"
+            ]);
+        }
+    }
+
+    public function updateProfile(Request $request){
+        $idProfile      = $request->idProfile;
+        $nama_pasien    = $request->nama_pasien;
+        $tempat_lahir   = $request->tempat_lahir;
+        $tgl_lahir      = $request->tgl_lahir;
+        $alamat         = $request->alamat;
+        $no_telp        = $request->no_telp;
+        $jenis_kelamin  = $request->jenis_kelamin;
+        $riwayat_alergi = $request->riwayat_alergi;
+
+        $user = DB::table('pasien')
+            ->where('id_pasien', $idProfile)
+            ->update([
+                "nama_pasien"    => $nama_pasien,
+                "tempat_lahir"   => $tempat_lahir,
+                "tgl_lahir"      => $tgl_lahir,
+                "alamat"         => $alamat,
+                "no_telp"        => $no_telp,
+                "jenis_kelamin"  => $jenis_kelamin,
+                "riwayat_alergi" => $riwayat_alergi
+            ]);
+
+        if($user){
+            return response()->json([
+                "status" => true,
+                "message" => "Update profile berhasil"
+            ]);
+
+        }else{
+            return response()->json([
+                "status" => false,
+                "message" => "Update tidak berhasil"
             ]);
         }
     }
