@@ -245,7 +245,7 @@
                 @role('user_pegawai')
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="{{url('antrian')}}"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
+                <li class="active"><a href="{{url('home')}}"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
                 <li><a href="#"><i class="fa fa-pencil"></i> <span>Rekam Medis</span></a></li>
                 <li class="#"><a href="{{url('pasien')}}"><i class="fa fa-link"></i> <span>Data Pasien</span></a></li>
                 <li class="#"><a href="{{url('dokter')}}"><i class="fa fa-link"></i> <span>Data Dokter</span></a></li>

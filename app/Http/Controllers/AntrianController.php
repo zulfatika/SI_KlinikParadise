@@ -60,7 +60,6 @@ class AntrianController extends Controller
         }
     }*/
 
-
     public function bukaAntrian(){
         DB::table('antrian')->truncate();
 //        $data = Antrian::all()->first();

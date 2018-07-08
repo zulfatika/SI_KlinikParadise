@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -33,6 +35,14 @@ Route::resource('pegawai','PegawaiController');
 
 Route::resource('jadwalklinik','JadwalKlinikController');
 
-//Route::resource('antrian','AntrianController');
+Route::resource('antrian','AntrianController');
+
+//Route::get('jml-antrian/{id}','HomeController@jmlAntrian')->name('jml-antrian');
+
+//Route::get('sisa-antrian/{id}','HomeController@sisaAntrian')->name('sisa-antrian');
+
+Route::get('next-antrian/{id}','HomeController@nextAntrian')->name('next-antrian');
+
+Route::get('tes/{id_pasien}/{id_poli}', 'AndroidUserController@cekAntriDiPoliLain');
 
 

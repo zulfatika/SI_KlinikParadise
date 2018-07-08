@@ -16,7 +16,6 @@ class Antrian extends Model
     public function pasien(){
         return $this->belongsTo('App/Pasien','id_pasien', 'id_pasien');
     }
-
     public function sum($poli){
         return Antrian::all()->where('id_poli','=',$poli)->where('tgl_periksa','=',date('Y-m-d'))->count();
     }

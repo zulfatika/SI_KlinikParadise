@@ -25,4 +25,5 @@ Route::get('jadwal', 'AndroidUserController@getJadwal');
 Route::post('tambahAntrian', 'AndroidUserController@tambahAntrianBaru');
 Route::post('profile', 'AndroidUserController@profile');
 Route::post('updateProfile', 'AndroidUserController@updateProfile');
-
+Route::post('history', 'AndroidUserController@getHistoryAntrian');
+Route::post('detailAntrian', 'AndroidUserController@detailAntrian');

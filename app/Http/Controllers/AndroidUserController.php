@@ -45,6 +45,7 @@ class AndroidUserController extends Controller
         }
     }
 
+    //tambahregisterpasien
     public function tambahAntrian(Request $request){
         $nik            = $request->nik;
         $nama_pasien    = $request->nama_pasien;
@@ -143,8 +144,28 @@ class AndroidUserController extends Controller
         return $data->status_cek;
     }
 
+    public function cekAntriDiPoliLain($id_pasien, $id_poli){
+        $data = DB::table('antrian')
+            ->select('id_pasien')
+            ->where('id_poli', '<>', $id_poli)
+            ->where('id_pasien', '=', $id_pasien)
+            ->where('status_cek', '<>', 2)
+            ->get();
+        $hitung = count($data);
+        if($hitung == 0){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
     public function tambahAntrianBaru(Request $request){
         // $status_antrian = DB::table('status_antrian')->select('status_cek')->orderByDesc('status_cek')->get();
+
+        $idPasien = $request->idPasien;
+        $tanggalPeriksa = $request->tanggalPeriksa;
+        $idPoli = $request->idPoli;
+        $statusCheck = 0;
 
         if ($this->statusAntrian() == self::KLINIK_TUTUP){
             return response()->json([
@@ -152,12 +173,13 @@ class AndroidUserController extends Controller
                 "message" => 'Antrian Sudah Ditutup'
             ]);
         }
+        elseif($this->cekAntriDiPoliLain($idPasien, $idPoli)){
+            return response()->json([
+                "status" => false,
+                "message" => 'Anda harus selesaikan antrian yang ada dulu'
+            ]);
+        }
         else{
-            $idPasien = $request->idPasien;
-            $tanggalPeriksa = $request->tanggalPeriksa;
-            $idPoli = $request->idPoli;
-            $statusCheck = 0;
-
             $last_antrian = DB::table('antrian')->select('id_poli')->where('id_poli', $idPoli)->get();
             $jml = count($last_antrian);
             $urutan = $jml + 1;
@@ -232,6 +254,65 @@ class AndroidUserController extends Controller
             return response()->json([
                 "status" => false,
                 "message" => "User tidak ditemukan"
+            ]);
+        }
+    }
+
+    public function getHistoryAntrian(Request $request){
+        $id_user = $request->idPasien;
+
+        $detail = DB::table('antrian')
+                ->join('poli', 'poli.id_poli', '=', 'antrian.id_poli')
+                ->where('antrian.id_pasien', $id_user);
+
+        if ($detail) {
+            return response()->json([
+                "status" => true,
+                "data" => $detail->get(),
+            ]);
+        }else {
+            return response()->json([
+                "status" => false,
+                "message" => "Data not found",
+            ]);
+        }
+    }
+
+    public function detailAntrian(Request $request){
+        $id_user = $request->idPasien;
+
+        $detail = DB::table('antrian')
+                ->join('poli', 'poli.id_poli', '=', 'antrian.id_poli')
+                ->join('pasien', 'pasien.id_pasien', '=', 'antrian.id_pasien')
+                ->where('antrian.id_pasien', $id_user)->first();
+
+        $detailUmum = DB::table('antrian')
+                ->where('id_poli', 1)
+                ->where('status_cek', 1)
+                ->first();
+
+        $detailGigi = DB::table('antrian')
+                ->where('id_poli', 2)
+                ->where('status_cek', 1)
+                ->first();
+
+        $detailKecantikan = DB::table('antrian')
+                ->where('id_poli', 3)
+                ->where('status_cek', 1)
+                ->first();
+
+        if ($detail) {
+            return response()->json([
+                "status" => true,
+                "data" => $detail,
+                "umum" => $detailUmum,
+                "gigi" => $detailGigi,
+                "kecantikan" => $detailKecantikan,
+            ]);
+        }else {
+            return response()->json([
+                "status" => false,
+                "message" => "Data not found",
             ]);
         }
     }

@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+<?php
+//    dd($polis[0]->antrian);
+?>
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -44,15 +46,15 @@
                 <div class="small-box bg-aqua">
                     <div class="inner">
                         <h4>Poli Umum</h4>
-                        <h3>0</h3>
-                        <h6>Jumlah Antrian : @if(isset($polis)){{$polis->sum(1)}}@else 0 @endif</h6>
-                        <h6>Sisa Antrian : 0</h6>
+                        <h3>{{ $antrian_aktif[0]['umum'] }}</h3>
+                        <h6>Jumlah Antrian : {{ $jml[0]['jml_antrian_umum'] }}</h6>
+                        <h6>Sisa Antrian : {{ $jml[0]['sisa_antrian_umum']  }}</h6>
                     </div>
 
                     <div class="icon">
                         <i class="ion ion-medkit"></i>
                     </div>
-                    <a href="#" class="small-box-footer">Panggil No. Antrian <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{route('next-antrian',[1])}}" class="small-box-footer">Panggil No. Antrian <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -61,14 +63,14 @@
                 <div class="small-box bg-yellow">
                     <div class="inner">
                         <h4>Poli Gigi</h4>
-                        <h3>0</h3>
-                        <h6>Jumlah Antrian : 0</h6>
-                        <h6>Sisa Antrian : 0</h6>
+                        <h3>{{ $antrian_aktif[0]['gigi'] }}</h3>
+                        <h6>Jumlah Antrian : {{ $jml[0]['jml_antrian_gigi'] }}</h6>
+                        <h6>Sisa Antrian : {{ $jml[0]['sisa_antrian_gigi']  }}</h6>
                     </div>
                     <div class="icon">
                         <i class="ion ion-ios-analytics"></i>
                     </div>
-                    <a href="#" class="small-box-footer">Panggil No. Antrian <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{route('next-antrian',[2])}}" class="small-box-footer">Panggil No. Antrian <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -77,14 +79,14 @@
                 <div class="small-box bg-maroon">
                     <div class="inner">
                         <h4>Poli Kecantikan</h4>
-                        <h3>0</h3>
-                        <h6>Jumlah Antrian : 0</h6>
-                        <h6>Sisa Antrian : 0</h6>
+                        <h3>{{ $antrian_aktif[0]['cantik'] }}</h3>
+                        <h6>Jumlah Antrian : {{ $jml[0]['jml_antrian_cantik'] }}</h6>
+                        <h6>Sisa Antrian : {{ $jml[0]['sisa_antrian_cantik']  }}</h6>
                     </div>
                     <div class="icon">
                         <i class="ion ion-ios-rose"></i>
                     </div>
-                    <a href="#" class="small-box-footer">Panggil No. Antrian <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{route('next-antrian',[3])}}" class="small-box-footer">Panggil No. Antrian <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
