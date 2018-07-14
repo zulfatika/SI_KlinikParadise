@@ -38,7 +38,6 @@ class PoliController extends Controller
     public function store(Request $request)
     {
         Poli::create($request->all());
-
         return back();
     }
 

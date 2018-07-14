@@ -146,7 +146,6 @@
                             <!-- The user image in the menu -->
                             <li class="user-header">
                                 <img src="{{asset('image/avatar5.png')}}" class="img-circle" alt="User Image">
-
                                 <p>
                                     {{Auth::user()->name}}
                                     <small>Member since Nov. 2018</small>
@@ -213,9 +212,8 @@
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
                 </div>
             </form>
             <!-- /.search form -->
@@ -245,8 +243,8 @@
                 @role('user_pegawai')
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="{{url('antrian')}}"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
-                <li><a href="#"><i class="fa fa-pencil"></i> <span>Rekam Medis</span></a></li>
+                <li class="active"><a href="{{url('home')}}"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
+                <li class="#"><a href="{{url('rm_pegawai/{antrian?}')}}"><i class="fa fa-pencil"></i> <span>Rekam Medis</span></a></li>
                 <li class="#"><a href="{{url('pasien')}}"><i class="fa fa-link"></i> <span>Data Pasien</span></a></li>
                 <li class="#"><a href="{{url('dokter')}}"><i class="fa fa-link"></i> <span>Data Dokter</span></a></li>
                 <li class="#"><a href="{{url('jadwal')}}"><i class="fa fa-link"></i> <span>Jadwal</span></a></li>
@@ -279,7 +277,6 @@
                 <li class="active">Here</li>
             </ol>
         </section>
-
         <!-- Main content -->
         <section class="content container-fluid">
             <!--------------------------
@@ -401,15 +398,13 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
 <script>$(document).ready(function(){
-            $('.sidebar-menu').tree()
-        })
+        $('.sidebar-menu').tree()
+    })
 </script>
 
 <script>
     $('#edit').on('show.bs.modal', function (event) {
-
         var button = $(event.relatedTarget) // Button that triggered the modal
-
         //DOKTER
         var sip_dokter = button.data('mysip_dokter') // Extract info from data-* attributes
         var username = button.data('myusername')
@@ -421,7 +416,6 @@
         var id_poli = button.data('myid_poli')
         var id_jadwal = button.data('myid_jadwal')
         var dok_id = button.data('dokid')
-
         //PEGAWAI
         var username = button.data('myusername')
         var name = button.data('myname')
@@ -430,29 +424,23 @@
         var jenis_kelamin = button.data('myjenis_kelamin')
         var no_telp = button.data('myno_telp')
         var id_pegawai = button.data('idpegawai')
-
         //POLI
         var nama_poli = button.data('mynama_poli') // Extract info from data-* attributes
         var keterangan = button.data('myketerangan')
         var id_poli = button.data('idpoli')
-
         //JADWALDOKTER
         var shift_praktek = button.data('myshift_praktek') // Extract info from data-* attributes
         var hari_praktek = button.data('myhari_praktek')
         var jam_praktek = button.data('myjam_praktek')
         var id_jadwal = button.data('idjadwal')
-
         //JADWALKLINIK
         var shift_klinik = button.data('myshift_klinik') // Extract info from data-* attributes
         var jam_buka = button.data('myjam_buka')
         var jam_tutup = button.data('myjam_tutup')
         var id_jadwalklinik = button.data('idjadwalklinik')
-
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-
         var modal = $(this)
-
         //DOKTER
         modal.find('.modal-body #sip_dokter').val(sip_dokter);
         modal.find('.modal-body #username').val(username);
@@ -464,7 +452,6 @@
         modal.find('.modal-body #id_poli').val(id_poli);
         modal.find('.modal-body #id_jadwal').val(id_jadwal);
         modal.find('.modal-body #dok_id').val(dok_id);
-
         //PEGAWAI
         modal.find('.modal-body #username').val(username);
         modal.find('.modal-body #name').val(name);
@@ -473,63 +460,46 @@
         modal.find('.modal-body #jenis_kelamin').val(jenis_kelamin);
         modal.find('.modal-body #no_telp').val(no_telp);
         modal.find('.modal-body #id_pegawai').val(id_pegawai);
-
         //POLI
         modal.find('.modal-body #nama_poli').val(nama_poli);
         modal.find('.modal-body #keterangan').val(keterangan);
         modal.find('.modal-body #id_poli').val(id_poli);
         console.log
-
         //JADWALDOKTER
         modal.find('.modal-body #shift_praktek').val(shift_praktek);
         modal.find('.modal-body #hari_praktek').val(hari_praktek);
         modal.find('.modal-body #jam_praktek').val(jam_praktek);
         modal.find('.modal-body #id_jadwal').val(id_jadwal);
-
         //JADWALKLINIK
         modal.find('.modal-body #shift_klinik').val(shift_klinik);
         modal.find('.modal-body #jam_buka').val(jam_buka);
         modal.find('.modal-body #jam_tutup').val(jam_tutup);
         modal.find('.modal-body #id_jadwalklinik').val(id_jadwalklinik);
     })
-
     $('#delete').on('show.bs.modal', function (event) {
-
         var button = $(event.relatedTarget) // Button that triggered the modal
-
         //DOKTER
         var dok_id = button.data('dokid')
-
         //PEGAWAI
         var id_pegawai = button.data('idpegawai')
-
         //POLI
         var id_poli = button.data('idpoli')
-
         //JADWALDOKTER
         var id_jadwal = button.data('idjadwal')
-
         //JADWALKLINIK
         var id_jadwalklinik = button.data('idjadwalklinik')
-
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-
         var modal = $(this)
-
         //DOKTER
         modal.find('.modal-body #dok_id').val(dok_id);
-
         //PEGAWAI
         modal.find('.modal-body #id_pegawai').val(id_pegawai);
-
         //POLI
         modal.find('.modal-body #id_poli').val(id_poli);
         console.log
-
         //JADWALDOKTER
         modal.find('.modal-body #id_jadwal').val(id_jadwal);
-
         //JADWALKLINIK
         modal.find('.modal-body #id_jadwalklinik').val(id_jadwalklinik);
     })

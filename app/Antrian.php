@@ -11,14 +11,14 @@ class Antrian extends Model
     public $timestamps = ['updated_at','created_at'];
 
     public function poli(){
-        return $this->belongsTo('App/Poli','id_poli', 'id_poli');
+        return $this->belongsTo('App\Poli','id_poli', 'id_poli');
     }
+
     public function pasien(){
-        return $this->belongsTo('App/Pasien','id_pasien', 'id_pasien');
+        return $this->belongsTo('App\Pasien','id_pasien', 'id_pasien');
     }
 
     public function sum($poli){
         return Antrian::all()->where('id_poli','=',$poli)->where('tgl_periksa','=',date('Y-m-d'))->count();
     }
-
 }

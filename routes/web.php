@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +9,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,8 +31,19 @@ Route::resource('jadwal','JadwalController');
 
 Route::resource('pegawai','PegawaiController');
 
+//Route::resource('rm','RMController');
+
+Route::get('rm_pegawai/{antrian?}','RMController@indexPegawai');
+
+Route::post('cek_fisik','CekFisikController@create')->name('cek_fisik:insert');
+
 Route::resource('jadwalklinik','JadwalKlinikController');
 
-//Route::resource('antrian','AntrianController');
+Route::resource('antrian','AntrianController');
 
+//Route::get('jml-antrian/{id}','HomeController@jmlAntrian')->name('jml-antrian');
+//Route::get('sisa-antrian/{id}','HomeController@sisaAntrian')->name('sisa-antrian');
 
+Route::get('next-antrian/{id}','HomeController@nextAntrian')->name('next-antrian');
+
+Route::get('tes/{id_pasien}/{id_poli}', 'AndroidUserController@cekAntriDiPoliLain');

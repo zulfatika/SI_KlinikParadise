@@ -24,6 +24,9 @@ class CreateAntrianTable extends Migration
             $table->integer('id_poli')->unsigned();
             $table->foreign('id_poli')->references('id_poli')->on('poli')
                   ->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('id_jadwalklinik')->unsigned();
+            $table->foreign('id_jadwalklinik')->references('id_jadwalklinik')->on('jadwal_klinik')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -18,7 +18,6 @@ class AntrianController extends Controller
     {
         $this->middleware('auth');
     }
-
     /**
      * Show the application dashboard.
      *
@@ -29,14 +28,11 @@ class AntrianController extends Controller
         //$antrian = Antrian::all();
 //        return view('/home');
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-
     /*public function ambil_antrian(Request $request)
     {
         $data = Antrian::create([
@@ -59,12 +55,11 @@ class AntrianController extends Controller
             ]);
         }
     }*/
-
-
     public function bukaAntrian(){
         DB::table('antrian')->truncate();
 //        $data = Antrian::all()->first();
         $data = StatusAntrian::all()->first();
+
         if(sizeof($data)==0){
             DB::table('status_antrian')->insert([
                 'status_cek'=>self::KLINIK_BUKA
@@ -79,7 +74,6 @@ class AntrianController extends Controller
 
     public function tutupAntrian(){
         /* DB::table('antrian')->truncate();
-
            $data = Antrian::all()->first();
            if(sizeof($data)==0){
              DB::table('status_antrian')->create([
@@ -97,7 +91,6 @@ class AntrianController extends Controller
     {
         //Antrian::all()->
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -108,7 +101,6 @@ class AntrianController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      *
@@ -119,7 +111,6 @@ class AntrianController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -130,7 +121,6 @@ class AntrianController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -142,7 +132,6 @@ class AntrianController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -154,5 +143,3 @@ class AntrianController extends Controller
         //
     }
 }
-
-
