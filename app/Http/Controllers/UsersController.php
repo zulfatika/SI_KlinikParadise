@@ -12,7 +12,7 @@ class UsersController extends Controller
 {
     public function users(User $user){
         $users = $user -> all();
-
+        dd($users);
         return fractal()
             -> collection($users)
             -> transformWith(new UserTransformers)

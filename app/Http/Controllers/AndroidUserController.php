@@ -94,14 +94,31 @@ class AndroidUserController extends Controller
     public function login(Request $request){
         $nik = $request->nik;
         $password = $request->password;
+        $token = $request->token;
 
         $user = DB::table('pasien')
             ->where('nik', '=', $nik)
 //            ->select("nama_pasien", "no_kartu", "password")
             ->first();
 
-        if (Hash::check($password, $user->password))
-            return response()->json($user);
+        if (Hash::check($password, $user->password)){
+            $id_pasien = $user->id_pasien;
+            $update_token = DB::table('pasien')
+            ->where('id_pasien', $id_pasien)
+            ->update([
+                "token"    => $token
+            ]);
+            if ($update_token){
+                return response()->json($user);
+            }else {
+                return response()->json($user);
+            }
+        }else {
+            return response()->json([
+                "status" => false,
+                "message" => "NIK dan password tidak cocok"
+            ]);
+        }
     }
 
     public function getPoli(){
@@ -128,20 +145,32 @@ class AndroidUserController extends Controller
     public function getJadwal(){
 //        $nik = $request->nik;
 //        $password = $request->password;
+        $selected = array();
+
+        date_default_timezone_set("Asia/Jakarta");
+        $hours = date("H:i:s");
         $data = DB::table('jadwal_klinik')
-//            ->where('nik', '=', $nik)
             ->select()
             ->get();
 //            ->first();
 
-        if (sizeof($data)){
+        foreach ($data as $time) {
+            if ($time->jam_buka <= $hours && $hours <= $time->jam_tutup) {
+                $selected[] = $time;
+            }
+        }
+
+        if (sizeof($selected)){
             return response()->json([
-                'status' => 'OK',
-                'data'   => $data,
+                'status' => true,
+                'time' => $hours,
+                'data'   => $selected,
             ]);
         }else{
             return response()->json([
-                'status' => 'ERROR',
+                'status' => false,
+                'time' => $hours,
+                'message' => "Klinik sedang tutup"
             ]);
         }
     }
@@ -267,7 +296,7 @@ class AndroidUserController extends Controller
         $detail = DB::table('antrian')
             ->join('poli', 'poli.id_poli', '=', 'antrian.id_poli')
             ->join('jadwal_klinik', 'jadwal_klinik.id_jadwalklinik', '=', 'antrian.id_jadwalklinik')
-            ->where('antrian.id_pasien', $id_user);
+            ->where('antrian.id_pasien', $id_user); 
         if ($detail) {
             return response()->json([
                 "status" => true,
@@ -287,6 +316,7 @@ class AndroidUserController extends Controller
             ->join('poli', 'poli.id_poli', '=', 'antrian.id_poli')
             ->join('jadwal_klinik', 'jadwal_klinik.id_jadwalklinik', '=', 'antrian.id_jadwalklinik')
             ->join('pasien', 'pasien.id_pasien', '=', 'antrian.id_pasien')
+            ->orderBy('antrian.id_antrian', 'desc')
             ->where('antrian.id_pasien', $id_user)->first();
 
         $detailUmum = DB::table('antrian')
@@ -322,6 +352,30 @@ class AndroidUserController extends Controller
             ]);
         }
     }
+
+    public function buktiAntrian (Request $request){
+        $id_antrian = $request->idAntrian;
+
+        $user = DB::table('antrian')
+            ->join('poli', 'poli.id_poli', '=', 'antrian.id_poli')
+            ->join('jadwal_klinik', 'jadwal_klinik.id_jadwalklinik', '=', 'antrian.id_jadwalklinik')
+            ->join('pasien', 'pasien.id_pasien', '=', 'antrian.id_pasien')
+            ->where('antrian.id_antrian', $id_antrian)
+            ->first();
+
+        if (sizeof($user)){
+            return response()->json([
+                "status" => true,
+                "data" => $user
+            ]);
+        }else{
+            return response()->json([
+                "status" => true,
+                "message" => "antrian tidak ditemukan"
+            ]);
+        }
+    }
+
 
     public function updateProfile(Request $request){
         $idProfile      = $request->idProfile;

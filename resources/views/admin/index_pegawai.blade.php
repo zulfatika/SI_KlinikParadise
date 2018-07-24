@@ -1,40 +1,47 @@
 @extends('layouts.master')
 
 @section('content')
-    <h3>Data Pegawai</h3>
-
-    <table class="table table-responsive">
-        <thead>
-        <tr>
-            <th>Username</th>
-            <th>Nama Pegawai</th>
-            <th>Password</th>
-            <th>Alamat</th>
-            <th>Jenis Kelamin</th>
-            <th>No. Telepon</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        @foreach($pegawai as $pegawai)
-            <tr>
-                <td>{{$pegawai->users->username}}</td>
-                <td>{{$pegawai->users->name}}</td>
-                <td>{{$pegawai->users->password}}</td>
-                <td>{{$pegawai->alamat}}</td>
-                <td>{{$pegawai->jenis_kelamin}}</td>
-                <td>{{$pegawai->no_telp}}</td>
-                <td><button class="btn btn-info"
-                            data-myusername="{{$pegawai->username}}" data-myname="{{$pegawai->name}}"
-                            data-mypassword="{{$pegawai->password}}" data-myalamat="{{$pegawai->alamat}}"
-                            data-myjenis_kelamin="{{$pegawai->jenis_kelamin}}" data-myno_telp="{{$pegawai->no_telp}}"
-                            data-idpegawai data-toggle="modal" data-target="#edit">Ubah</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#delete">Hapus</button>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-lg-12 col-xs-6">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 style="text-align: center">DATA PEGAWAI</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr style="background-color: #a7ffa2">
+                            <th>Username</th>
+                            <th>Nama Pegawai</th>
+                            <th>Alamat</th>
+                            <th>Jenis Kelamin</th>
+                            <th>No. Telepon</th>
+                            <th style="width: 200px">Modify</th>
+                        </tr>
+                        <tbody>
+                        @foreach($pegawai as $pegawai)
+                            <tr>
+                                <td>{{$pegawai->users->username}}</td>
+                                <td>{{$pegawai->users->name}}</td>
+                                <td>{{$pegawai->alamat}}</td>
+                                <td>{{$pegawai->jenis_kelamin}}</td>
+                                <td>{{$pegawai->no_telp}}</td>
+                                <td><button class="btn btn-info"
+                                            data-myusername="{{$pegawai->username}}" data-myname="{{$pegawai->name}}"
+                                            data-myalamat="{{$pegawai->alamat}}"
+                                            data-myjenis_kelamin="{{$pegawai->jenis_kelamin}}" data-myno_telp="{{$pegawai->no_telp}}"
+                                            data-idpegawai data-toggle="modal" data-target="#edit">Ubah</button>
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#delete">Hapus</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
         Tambah Baru

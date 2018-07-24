@@ -39,6 +39,14 @@
                     </div>
                 </div>
             @endif
+
+                <div class="col-lg-10 col-xs-6">
+                    <div class="box-body" style="padding-left: 0">
+                        <a href="{{ url('tambahdaftar')}}" type="submit" class="btn btn-primary pull-right"><i class="fa fa-plus"></i>
+                            TAMBAH DAFTAR PERIKSA
+                        </a>
+                    </div>
+                </div>
         </div>
 
         <!-- Small boxes (Stat box) -->

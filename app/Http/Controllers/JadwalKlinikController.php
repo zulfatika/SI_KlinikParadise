@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class JadwalKlinikController extends Controller
 {
-
     public function index()
     {
         $jadwalklinik = JadwalKlinik::all();

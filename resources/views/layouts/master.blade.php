@@ -12,6 +12,15 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css')}}">
     <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/skins/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE/dist/js/AdminLTE.min.js')}}">
+    
+    <!-- jQuery 3 -->
+    <script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('AdminLTE/bower_components/select2/dist/js/select2.full.js')}}"></script>
+
+    <script src="{{ asset('AdminLTE/dist/js/obat2.js')}}"></script>
+
+
 </head>
 
 <body class="hold-transition skin-green sidebar-mini">
@@ -38,8 +47,8 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
-                    <li class="dropdown messages-menu">
-                        <!-- Menu toggle button -->
+                    <!--<li class="dropdown messages-menu">
+                        -- Menu toggle button --
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
                             <span class="label label-info">4</span>
@@ -47,35 +56,35 @@
                         <ul class="dropdown-menu">
                             <li class="header">You have 4 messages</li>
                             <li>
-                                <!-- inner menu: contains the messages -->
+                                -- inner menu: contains the messages --
                                 <ul class="menu">
-                                    <li><!-- start message -->
+                                    <li>-- start message --
                                         <a href="#">
                                             <div class="pull-left">
-                                                <!-- User Image -->
+                                                -- User Image --
                                                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                             </div>
-                                            <!-- Message title and timestamp -->
+                                            -- Message title and timestamp --
                                             <h4>
                                                 Support Team
                                                 <small><i class="fa fa-clock-o"></i> 5 mins</small>
                                             </h4>
-                                            <!-- The message -->
+                                            -- The message --
                                             <p>Why not buy a new awesome theme?</p>
                                         </a>
                                     </li>
-                                    <!-- end message -->
+                                    -- end message --
                                 </ul>
-                                <!-- /.menu -->
+                                -- /.menu --
                             </li>
                             <li class="footer"><a href="#">See All Messages</a></li>
                         </ul>
                     </li>
-                    <!-- /.messages-menu -->
+                    -- /.messages-menu --
 
-                    <!-- Notifications Menu -->
+                    -- Notifications Menu --
                     <li class="dropdown notifications-menu">
-                        <!-- Menu toggle button -->
+                        -- Menu toggle button --
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
                             <span class="label label-warning">10</span>
@@ -83,22 +92,22 @@
                         <ul class="dropdown-menu">
                             <li class="header">You have 10 notifications</li>
                             <li>
-                                <!-- Inner Menu: contains the notifications -->
+                                -- Inner Menu: contains the notifications --
                                 <ul class="menu">
-                                    <li><!-- start notification -->
+                                    <li>-- start notification --
                                         <a href="#">
                                             <i class="fa fa-users text-aqua"></i> 5 new members joined today
                                         </a>
                                     </li>
-                                    <!-- end notification -->
+                                    -- end notification --
                                 </ul>
                             </li>
                             <li class="footer"><a href="#">View all</a></li>
                         </ul>
                     </li>
-                    <!-- Tasks Menu -->
+                    -- Tasks Menu --
                     <li class="dropdown tasks-menu">
-                        <!-- Menu Toggle Button -->
+                        -- Menu Toggle Button --
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-flag-o"></i>
                             <span class="label label-danger">9</span>
@@ -106,18 +115,18 @@
                         <ul class="dropdown-menu">
                             <li class="header">You have 9 tasks</li>
                             <li>
-                                <!-- Inner menu: contains the tasks -->
+                                -- Inner menu: contains the tasks --
                                 <ul class="menu">
-                                    <li><!-- Task item -->
+                                    <li>-- Task item --
                                         <a href="#">
-                                            <!-- Task title and progress text -->
+                                            -- Task title and progress text --
                                             <h3>
                                                 Design some buttons
                                                 <small class="pull-right">20%</small>
                                             </h3>
-                                            <!-- The progress bar -->
+                                            -- The progress bar --
                                             <div class="progress xs">
-                                                <!-- Change the css width attribute to simulate progress -->
+                                                -- Change the css width attribute to simulate progress --
                                                 <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
                                                      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">20% Complete</span>
@@ -125,7 +134,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <!-- end task item -->
+                                    -- end task item --
                                 </ul>
                             </li>
                             <li class="footer">
@@ -231,11 +240,12 @@
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('jadwalklinik')}}">Data Jadwal Klinik</a></li>
-                        <li><a href="{{url('poli')}}">Data Poli</a></li>
-                        <li><a href="{{url('jadwal')}}">Data Jadwal Dokter</a></li>
                         <li><a href="{{url('dokter')}}">Data Dokter</a></li>
                         <li><a href="{{url('pegawai')}}">Data Pegawai</a></li>
+                        <li><a href="{{url('obat')}}">Data Obat</a></li>
+                        <li><a href="{{url('poli')}}">Data Poli</a></li>
+                        <li><a href="{{url('jadwalklinik')}}">Data Jadwal Klinik</a></li>
+                        <li><a href="{{url('jadwal')}}">Data Jadwal Dokter</a></li>
                     </ul>
                 </li>
                 @endrole
@@ -244,7 +254,8 @@
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="active"><a href="{{url('home')}}"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
-                <li class="#"><a href="{{url('rm_pegawai/{antrian?}')}}"><i class="fa fa-pencil"></i> <span>Rekam Medis</span></a></li>
+                <li class="#"><a href="{{url('rm_pegawai/{antrian}')}}"><i class="fa fa-pencil"></i> <span>Input Rekam Medis</span></a></li>
+                <li class="#"><a href="{{url('hasilallrm')}}"><i class="fa fa-file-text"></i> <span> Hasil Rekam Medis</span></a></li>
                 <li class="#"><a href="{{url('pasien')}}"><i class="fa fa-link"></i> <span>Data Pasien</span></a></li>
                 <li class="#"><a href="{{url('dokter')}}"><i class="fa fa-link"></i> <span>Data Dokter</span></a></li>
                 <li class="#"><a href="{{url('jadwal')}}"><i class="fa fa-link"></i> <span>Jadwal</span></a></li>
@@ -254,7 +265,8 @@
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="active"><a href="{{url('jadwal')}}"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
-                <li><a href="#"><i class="fa fa-pencil"></i> <span>Rekam Medis</span></a></li>
+                <li class="#"><a href="{{url('rm_dokter/{antrian}')}}"><i class="fa fa-pencil"></i> <span>Input Rekam Medis</span></a></li>
+                <li class="#"><a href="{{url('hasilallrm')}}"><i class="fa fa-file-text"></i> <span> Hasil Rekam Medis</span></a></li>
                 <li class="#"><a href="{{url('pasien')}}"><i class="fa fa-link"></i> <span>Data Pasien</span></a></li>
                 <li class="#"><a href="{{url('obat')}}"><i class="fa fa-link"></i> <span>Daftar Obat</span></a></li>
                 @endrole
@@ -376,8 +388,7 @@
     <div class="control-sidebar-bg"></div>
 </div>
 
-<!-- jQuery 3 -->
-<script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js')}}"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- FastClick -->
@@ -409,7 +420,7 @@
         var sip_dokter = button.data('mysip_dokter') // Extract info from data-* attributes
         var username = button.data('myusername')
         var name = button.data('myname')
-        var password = button.data('mypassword')
+        //var password = button.data('mypassword')
         var alamat = button.data('myalamat')
         var jenis_kelamin = button.data('myjenis_kelamin')
         var no_telp = button.data('myno_telp')
@@ -419,7 +430,7 @@
         //PEGAWAI
         var username = button.data('myusername')
         var name = button.data('myname')
-        var password = button.data('mypassword')
+        //var password = button.data('mypassword')
         var alamat = button.data('myalamat')
         var jenis_kelamin = button.data('myjenis_kelamin')
         var no_telp = button.data('myno_telp')
@@ -438,6 +449,10 @@
         var jam_buka = button.data('myjam_buka')
         var jam_tutup = button.data('myjam_tutup')
         var id_jadwalklinik = button.data('idjadwalklinik')
+        //OBAT
+        var nama_obat = button.data('mynama_obat') // Extract info from data-* attributes
+        var satuan_obat = button.data('mysatuan_obat')
+        var id_obat = button.data('idobat')
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
@@ -445,7 +460,7 @@
         modal.find('.modal-body #sip_dokter').val(sip_dokter);
         modal.find('.modal-body #username').val(username);
         modal.find('.modal-body #name').val(name);
-        modal.find('.modal-body #password').val(password);
+        //modal.find('.modal-body #password').val(password);
         modal.find('.modal-body #alamat').val(alamat);
         modal.find('.modal-body #jenis_kelamin').val(jenis_kelamin);
         modal.find('.modal-body #no_telp').val(no_telp);
@@ -455,7 +470,7 @@
         //PEGAWAI
         modal.find('.modal-body #username').val(username);
         modal.find('.modal-body #name').val(name);
-        modal.find('.modal-body #password').val(password);
+        //modal.find('.modal-body #password').val(password);
         modal.find('.modal-body #alamat').val(alamat);
         modal.find('.modal-body #jenis_kelamin').val(jenis_kelamin);
         modal.find('.modal-body #no_telp').val(no_telp);
@@ -475,6 +490,10 @@
         modal.find('.modal-body #jam_buka').val(jam_buka);
         modal.find('.modal-body #jam_tutup').val(jam_tutup);
         modal.find('.modal-body #id_jadwalklinik').val(id_jadwalklinik);
+        //OBAT
+        modal.find('.modal-body #nama_obat').val(nama_obat);
+        modal.find('.modal-body #satuan_obat').val(satuan_obat);
+        modal.find('.modal-body #id_obat').val(id_obat);
     })
     $('#delete').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
@@ -488,6 +507,8 @@
         var id_jadwal = button.data('idjadwal')
         //JADWALKLINIK
         var id_jadwalklinik = button.data('idjadwalklinik')
+        //OBAT
+        var id_obat = button.data('idobat')
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
@@ -502,6 +523,8 @@
         modal.find('.modal-body #id_jadwal').val(id_jadwal);
         //JADWALKLINIK
         modal.find('.modal-body #id_jadwalklinik').val(id_jadwalklinik);
+        //OBAT
+        modal.find('.modal-body #id_obat').val(id_obat);
     })
 </script>
 </body>

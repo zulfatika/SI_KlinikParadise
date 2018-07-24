@@ -1,32 +1,40 @@
 @extends('layouts.master')
 
 @section('content')
-    <h3>Data Poli</h3>
-
-    <table class="table table-responsive">
-        <thead>
-        <tr>
-            <th>Nama Poli</th>
-            <th>Keterangan</th>
-            <th>Modify</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        @foreach($poli as $poli)
-            <tr>
-                <td>{{$poli->nama_poli}}</td>
-                <td>{{$poli->keterangan}}</td>
-                <td><button class="btn btn-info"
-                            data-mynama_poli="{{$poli->nama_poli}}" data-myketerangan="{{$poli->keterangan}}"
-                            data-idpoli="{{$poli->id_poli}}"
-                            data-toggle="modal" data-target="#edit">Ubah</button>
-                    <button class="btn btn-danger" data-idpoli ="{{$poli->id_poli}}" data-toggle="modal" data-target="#delete">Hapus</button>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 style="text-align: center">DATA POLI</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr style="background-color: #a7ffa2">
+                            <th>Nama Poli</th>
+                            <th>Keterangan</th>
+                            <th style="width: 200px">Modify</th>
+                        </tr>
+                        <tbody>
+                        @foreach($poli as $poli)
+                            <tr>
+                                <td>{{$poli->nama_poli}}</td>
+                                <td>{{$poli->keterangan}}</td>
+                                <td><button class="btn btn-info"
+                                            data-mynama_poli="{{$poli->nama_poli}}" data-myketerangan="{{$poli->keterangan}}"
+                                            data-idpoli="{{$poli->id_poli}}"
+                                            data-toggle="modal" data-target="#edit">Ubah</button>
+                                    <button class="btn btn-danger" data-idpoli ="{{$poli->id_poli}}" data-toggle="modal" data-target="#delete">Hapus</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
         Tambah Baru

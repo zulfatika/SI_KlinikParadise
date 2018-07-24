@@ -119,6 +119,10 @@ class HomeController extends Controller
             WHERE status_cek = 0 AND id_poli = $id_poli
             ORDER BY urutan_antrian ASC LIMIT 1"));
         }
+        
+        $this->getAntrianSekarang($id_poli);
+        // $this->getAntrianNoll($id_poli);
+        
         return redirect()->back();
         die();
         /*$ganti = Antrian::where('id_poli','=',$id_poli)
@@ -152,6 +156,106 @@ class HomeController extends Controller
                 ]);
         }
         return redirect()->back();*/
+    }
+
+    public function getAntrianSekarang($id_poli){
+        $antrian = DB::table('antrian')->where('id_poli', $id_poli)->where('status_cek', 1)->first();
+        if (sizeof($antrian) != 0) {
+            //antrian ada
+            $id_antrian = $antrian->urutan_antrian;
+            $antrian_sisa = DB::table('antrian')
+                        ->join('pasien', 'pasien.id_pasien', '=', 'antrian.id_pasien')
+                        ->where('antrian.id_poli', $id_poli)
+                        ->where('antrian.status_cek', 0)
+                        ->get();
+
+            $antrian_now = DB::table('antrian')
+                        ->join('pasien', 'pasien.id_pasien', '=', 'antrian.id_pasien')
+                        ->where('antrian.id_poli', $id_poli)
+                        ->where('antrian.status_cek', 1)
+                        ->first();
+
+            foreach ($antrian_sisa as $user) {
+                if ($user->token!=null) {
+                    $this->postNotification($user->token, $id_antrian);
+                }
+            }
+            $this->postNotificationNow($antrian_now->token);
+        }
+    }
+
+    public function getAntrianNoll($id_poli){
+        $antrian = DB::table('antrian')->where('id_poli', $id_poli)->where('status_cek', 0)->first();
+        if (sizeof($antrian) != 0) {
+            //antrian ada
+            $antrian_sisa = DB::table('antrian')
+                        ->join('pasien', 'pasien.id_pasien', '=', 'antrian.id_pasien')
+                        ->where('antrian.id_poli', $id_poli)
+                        ->where('antrian.status_cek', 0)
+                        ->get();
+
+            foreach ($antrian_sisa as $user) {
+                if ($user->token!=null) {
+                    $this->postNotificationNow($user->token);
+                }
+            }
+        }
+    }
+
+    public function postNotification($idPhone, $nomor_urut){
+        //pesan yang ada pada notifikasi
+        $message = "Antrian saat ini nomor ". $nomor_urut;
+        //title yang ada pada notifikasi
+        $title   = "Segera datang ke Klinik Paradise";
+        $path    = 'https://fcm.googleapis.com/fcm/send';
+        $server  = "AAAAOL4gVCg:APA91bEM6sMyfw4vIkLZc8F2Mm-jthOZrEnZvS6XtQpSDtqPvomVTQOeGQLw1gK_-k6D5ktSG9DvH7j1IwkVmJMgTDJCQaGDKcN0tGpnAGCNiXsrMTxmZ9lRqubXz_nvskyn01zbZI6fz5ixIyJ3HKKHkpPxjfAXuw";
+        $headers = array(
+            'Authorization:key='. $server, 
+            'Content-Type:application/json');
+        $msg     = array(
+            'body'         => $message,
+            'title'        => $title,
+            'click_action' => "TARGET_NOTIF");
+        $fields  = array(
+            'to'           => $idPhone,
+            'notification' => $msg);
+        $ch = curl_init();
+        curl_setopt( $ch,CURLOPT_URL, 'https://android.googleapis.com/gcm/send' );
+        curl_setopt( $ch,CURLOPT_POST, true );
+        curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+        curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode($fields) );
+        $result = curl_exec($ch);
+        curl_close($ch);
+    }
+
+    public function postNotificationNow($idPhone){
+        //pesan yang ada pada notifikasi
+        $message = "Sekarang giliran anda";
+        //title yang ada pada notifikasi
+        $title   = "Segera datang ke Klinik Paradise";
+        $path    = 'https://fcm.googleapis.com/fcm/send';
+        $server  = "AAAAOL4gVCg:APA91bEM6sMyfw4vIkLZc8F2Mm-jthOZrEnZvS6XtQpSDtqPvomVTQOeGQLw1gK_-k6D5ktSG9DvH7j1IwkVmJMgTDJCQaGDKcN0tGpnAGCNiXsrMTxmZ9lRqubXz_nvskyn01zbZI6fz5ixIyJ3HKKHkpPxjfAXuw";
+        $headers = array(
+            'Authorization:key='. $server, 
+            'Content-Type:application/json');
+        $msg     = array(
+            'body'         => $message,
+            'title'        => $title,
+            'click_action' => "TARGET_NOTIF");
+        $fields  = array(
+            'to'           => $idPhone,
+            'notification' => $msg);
+        $ch = curl_init();
+        curl_setopt( $ch,CURLOPT_URL, 'https://android.googleapis.com/gcm/send' );
+        curl_setopt( $ch,CURLOPT_POST, true );
+        curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+        curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode($fields) );
+        $result = curl_exec($ch);
+        curl_close($ch);
     }
 
     public function jmlAntrian($id_poli){

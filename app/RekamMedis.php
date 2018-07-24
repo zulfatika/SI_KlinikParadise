@@ -9,7 +9,7 @@ class RekamMedis extends Model
     protected $table = "rm_pemeriksaan";
 
     protected $fillable = [
-        'tgl_periksa', 'keluhan','diagnosa','terapi','status_cek','id_dokter','id_pasien'];
+        'keluhan','diagnosa','id_dokter','id_pasien'];
 
     public function pasien(){
         return $this->belongsTo('App\Pasien','id_pasien', 'id_pasien');

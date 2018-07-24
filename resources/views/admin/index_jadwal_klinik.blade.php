@@ -1,34 +1,43 @@
 @extends('layouts.master')
 
 @section('content')
-    <h3>Data Jadwal Klinik</h3>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 style="text-align: center">DATA JADWAL KLINIK</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr style="background-color: #a7ffa2">
+                            <th>Shift Klinik</th>
+                            <th>Jam Buka</th>
+                            <th>Jam Tutup</th>
+                            <th style="width: 200px">Modify</th>
+                        </tr>
+                        <tbody>
+                        @foreach($jadwalklinik as $jadwalklinik)
+                            <tr>
+                                <td>{{$jadwalklinik->shift_klinik}}</td>
+                                <td>{{$jadwalklinik->jam_buka}}</td>
+                                <td>{{$jadwalklinik->jam_tutup}}</td>
+                                <td><button class="btn btn-info"
+                                            data-myshift_klinik="{{$jadwalklinik->shift_klinik}}" data-myjam_buka="{{$jadwalklinik->jam_buka}}"
+                                            data-myjam_tutup="{{$jadwalklinik->jam_tutup}}" data-idjadwalklinik ="{{$jadwalklinik->id_jadwalklinik}}"
+                                            data-toggle="modal" data-target="#edit">Ubah</button>
+                                    <button class="btn btn-danger" data-idjadwalklinik ="{{$jadwalklinik->id_jadwalklinik}}" data-toggle="modal" data-target="#delete">Hapus</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
 
-    <table class="table table-responsive">
-        <thead>
-        <tr>
-            <th>Shift Klinik</th>
-            <th>Jam Buka</th>
-            <th>Jam Tutup</th>
-            <th>Modify</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        @foreach($jadwalklinik as $jadwalklinik)
-            <tr>
-                <td>{{$jadwalklinik->shift_klinik}}</td>
-                <td>{{$jadwalklinik->jam_buka}}</td>
-                <td>{{$jadwalklinik->jam_tutup}}</td>
-                <td><button class="btn btn-info"
-                            data-myshift_klinik="{{$jadwalklinik->shift_klinik}}" data-myjam_buka="{{$jadwalklinik->jam_buka}}"
-                            data-myjam_tutup="{{$jadwalklinik->jam_tutup}}" data-idjadwalklinik ="{{$jadwalklinik->id_jadwalklinik}}"
-                            data-toggle="modal" data-target="#edit">Ubah</button>
-                    <button class="btn btn-danger" data-idjadwalklinik ="{{$jadwalklinik->id_jadwalklinik}}" data-toggle="modal" data-target="#delete">Hapus</button>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
         Tambah Baru

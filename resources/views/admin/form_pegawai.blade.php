@@ -9,11 +9,6 @@
 </div>
 
 <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" name="password" id="password">
-</div>
-
-<div class="form-group">
     <label for="alamat">Alamat</label>
     <input type="text" class="form-control" name="alamat" id="alamat">
 </div>

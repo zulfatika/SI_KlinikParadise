@@ -35,3 +35,5 @@ Route::post('updateProfile', 'AndroidUserController@updateProfile');
 Route::post('history', 'AndroidUserController@getHistoryAntrian');
 
 Route::post('detailAntrian', 'AndroidUserController@detailAntrian');
+
+Route::post('antrianById', 'AndroidUserController@buktiAntrian');
