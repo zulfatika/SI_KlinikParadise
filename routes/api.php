@@ -37,3 +37,8 @@ Route::post('history', 'AndroidUserController@getHistoryAntrian');
 Route::post('detailAntrian', 'AndroidUserController@detailAntrian');
 
 Route::post('antrianById', 'AndroidUserController@buktiAntrian');
+
+Route::post('antrianByUserId', 'AndroidUserController@antiranAfterAdd');
+
+Route::post('deleteAntrian', 'AndroidUserController@deleteAntrian');
+

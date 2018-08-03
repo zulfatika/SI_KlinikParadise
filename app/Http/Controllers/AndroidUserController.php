@@ -183,6 +183,14 @@ class AndroidUserController extends Controller
         return $data->status_cek;
     }
 
+//    public function statusAntarObat(){
+//        $data = DB::table('status_kirim_obat')->first();
+//        if(sizeof($data)==0){
+//            return self::KLINIK_TUTUP;
+//        }
+//        return $data->status_obat;
+//    }
+
     public function cekAntriDiPoliLain($id_pasien, $id_poli){
         $data = DB::table('antrian')
             ->select('id_pasien')
@@ -356,17 +364,17 @@ class AndroidUserController extends Controller
     public function buktiAntrian (Request $request){
         $id_antrian = $request->idAntrian;
 
-        $user = DB::table('antrian')
+        $antrian = DB::table('antrian')
             ->join('poli', 'poli.id_poli', '=', 'antrian.id_poli')
             ->join('jadwal_klinik', 'jadwal_klinik.id_jadwalklinik', '=', 'antrian.id_jadwalklinik')
             ->join('pasien', 'pasien.id_pasien', '=', 'antrian.id_pasien')
             ->where('antrian.id_antrian', $id_antrian)
             ->first();
 
-        if (sizeof($user)){
+        if (sizeof($antrian)){
             return response()->json([
                 "status" => true,
-                "data" => $user
+                "data" => $antrian
             ]);
         }else{
             return response()->json([
@@ -376,6 +384,29 @@ class AndroidUserController extends Controller
         }
     }
 
+
+    public function antiranAfterAdd (Request $request){
+        $idPasien = $request->idPasien;
+
+        $detail = DB::table('antrian')
+            ->join('poli', 'poli.id_poli', '=', 'antrian.id_poli')
+            ->join('jadwal_klinik', 'jadwal_klinik.id_jadwalklinik', '=', 'antrian.id_jadwalklinik')
+            ->join('pasien', 'pasien.id_pasien', '=', 'antrian.id_pasien')
+            ->orderBy('antrian.id_antrian', 'desc')
+            ->where('antrian.id_pasien', $idPasien)->first();
+
+        if (sizeof($detail)){
+            return response()->json([
+                "status" => true,
+                "data" => $detail
+            ]);
+        }else{
+            return response()->json([
+                "status" => true,
+                "message" => "antrian tidak ditemukan"
+            ]);
+        }
+    }
 
     public function updateProfile(Request $request){
         $idProfile      = $request->idProfile;
@@ -408,6 +439,25 @@ class AndroidUserController extends Controller
             return response()->json([
                 "status" => false,
                 "message" => "Update tidak berhasil"
+            ]);
+        }
+    }
+
+    public function deleteAntrian(Request $request){
+        $idAntrian      = $request->idAntrian;
+        $antrian = DB::table('pasien')
+            ->where('id_antrian', $idAntrian)
+            ->delete();
+
+        if($antrian){
+            return response()->json([
+                "status" => true,
+                "message" => "Batalkan antrian berhasil"
+            ]);
+        }else{
+            return response()->json([
+                "status" => false,
+                "message" => "Batalkna pemesanan tidak berhasil"
             ]);
         }
     }

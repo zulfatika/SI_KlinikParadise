@@ -66,6 +66,16 @@ class ObatController extends Controller
         return back();
     }
 
+    public function storeObat(Request $request){
+        $obat = new Obat;
+        $obat->nama_obat = $request->nama_obat;
+        $obat->satuan_obat = $request->satuan_obat;
+
+        $obat->save();
+
+        return back();
+    }
+
     /**
      * Display the specified resource.
      *

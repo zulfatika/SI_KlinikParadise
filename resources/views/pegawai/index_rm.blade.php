@@ -14,22 +14,19 @@
         </ol>
         <br>
 
-        <div class="col col-sm-6" style="padding-left: 0px; margin: 10px 0 10px 0">
-            <a href="{{route('hasilrm')}}" type="submit" class="btn btn-primary pull-left" style="width: 100%; height: 100%; text-align: center">HASIL REKAM MEDIS</a>
-        </div>
-        <div class="col col-sm-6" style="padding-right: 0px;">
-            <form class="search-form right" style="margin: 10px 0 10px 0">
-                <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Search">
+        {{--<div class="col col-sm-6" style="padding-right: 0px;">--}}
+            {{--<form class="search-form right" style="margin: 10px 0 10px 0">--}}
+                {{--<div class="input-group">--}}
+                    {{--<input type="text" name="search" class="form-control" placeholder="Search">--}}
 
-                    <div class="input-group-btn">
-                        <button type="submit" name="submit" class="btn btn-danger btn-flat"><i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-                <!-- /.input-group -->
-            </form>
-        </div>
+                    {{--<div class="input-group-btn">--}}
+                        {{--<button type="submit" name="submit" class="btn btn-danger btn-flat"><i class="fa fa-search"></i>--}}
+                        {{--</button>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<!-- /.input-group -->--}}
+            {{--</form>--}}
+        {{--</div>--}}
     </section>
 
     <!-- Main content -->

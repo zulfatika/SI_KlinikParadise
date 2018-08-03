@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
     <!-- DataTables -->
@@ -8,110 +9,251 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            HASIL REKAM MEDIS
-            <small>Pasien</small>
+            Hasil Rekam Medis
+            <small>Per Pasien</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">Tables</a></li>
-            <li class="active">Simple</li>
+            <li class="active">Data tables</li>
         </ol>
+        <br>
+
     </section>
 
     <!-- Main content -->
     <section class="content">
+        <!-- /.col -->
+        <div class="col-md-14">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#cekfisik" data-toggle="tab">Cek Fisik</a></li>
+                    <li><a href="#ceklab" data-toggle="tab">Cek Lab</a></li>
+                    <li><a href="#diagnosa" data-toggle="tab">Anamnesis</a></li>
+                    <li><a href="#terapi" data-toggle="tab">Terapi</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="cekfisik">
+                        <div class="row">
+                            <!-- /.col -->
+                            <div class="col-md-12">
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="box-group" id="accordion">
+                                        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                                        <div class="panel box box-warning">
+                                            <div id="collapseOne" class="panel-collapse collapse in">
+                                                <div class="box-body">
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body">
+                                                        {{--<form action="{{route('input-a')}}" method="post" id="jenis_kadar">@csrf--}}
+                                                            {{--<input type="hidden" name="id_pasien" value="{{$pasien->id_pasien}}">--}}
+                                                        {{--</form>--}}
+                                                        <table id="example1" class="table table-bordered table-responsive table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Tanggal Periksa</th>
+                                                                <th>Tinggi Badan</th>
+                                                                <th>Berat Badan</th>
+                                                                <th>Tekanan Darah</th>
+                                                                <th>Nadi</th>
+                                                                <th>rr</th>
+                                                                <th>Suhu Badan</th>
+                                                                <th>Spo2</th>
+                                                            </tr>
+                                                            </thead>
 
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="box">
-                    <div class="active tab-pane" id="hasilrm">
-                        <!-- /.box-header -->
-
-                        <div class="box-body">
-                            <div class="box-group" id="accordion">
-                                <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-                                <!-- title row -->
-
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <h2 class="page-header">
-                                            <i class="fa fa-file-text-o"></i> Data Pasien
-                                        </h2>
-                                    </div>
-                                    <!-- /.col -->
-                                </div>
-                                <!-- info row -->
-                                <div class="row invoice-info">
-                                    <div class="col-sm-6 invoice-col">
-                                        No. Kartu : 1234<br>
-                                            <strong>NIK : 12345</strong><br>
-                                            Nama : Zulfa<br>
-                                            Usia : 12<br>
-                                    </div>
-                                    <!-- /.col -->
-                                    <div class="col-sm-6 invoice-col">
-                                        Dokter Periksa : zulfa<br>
-                                            <strong>Poli : Umum</strong><br>
-                                            Riwayat Alergi : -<br>
-                                    </div>
-                                </div><br>
-                                <!-- /.row -->
-                                <div class="panel box box-warning">
-                                    <div id="collapseOne" class="panel-collapse collapse in">
-                                        <!-- /.box-header -->
-                                        <div class="box-body">
-                                            <table id="example2" class="table table-bordered table-striped">
-                                                <thead>
-                                                <tr style="background-color: #a7ffa2;">
-                                                    <th>Tgl Periksa</th>
-                                                    <th>Cek Fisik</th>
-                                                    <th>Cek Lab</th>
-                                                    <th>Keluhan</th>
-                                                    <th>Diagnosa</th>
-                                                    <th>Terapi</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {{--@foreach($hasilrm as $hasilrm)--}}
-                                                    {{--<tr>--}}
-                                                        {{--<td>{{$hasilrm->shift_praktek}}</td>--}}
-                                                        {{--<td>{{$hasilrm->hari_praktek}}</td>--}}
-                                                        {{--<td>{{$hasilrm->jam_praktek}}</td>--}}
-                                                        {{--<td><button class="btn btn-info"--}}
-                                                                    {{--data-myshift_praktek="{{$jadwal->shift_praktek}}" data-myhari_praktek="{{$jadwal->hari_praktek}}"--}}
-                                                                    {{--data-myjam_praktek="{{$jadwal->jam_praktek}}" data-idjadwal ="{{$jadwal->id_jadwal}}"--}}
-                                                                    {{--data-toggle="modal" data-target="#edit">Ubah</button>--}}
-                                                            {{--<button class="btn btn-danger" data-idjadwal ="{{$jadwal->id_jadwal}}" data-toggle="modal" data-target="#delete">Hapus</button>--}}
-                                                        {{--</td>--}}
-                                                    {{--</tr>--}}
-                                                {{--@endforeach--}}
-                                                <tr>
-
-                                                    <td>23-07-2018</td>
-                                                    <td>Tinggi Badan : 150 cm<br>Berat Badan : 45 kg<br>Tek. darah : 120 mmHg<br>Nadi : 65 bpm<br>
-                                                    rr : 34 x/menit<br>Suhu : 38 C<br>Spo2 : 45 mmHg</td>
-                                                    <td>Haemoglobin : 210 hg</td>
-                                                    <td>Meriang, Panas, Batuk, Pilek</td>
-                                                    <td>Demam</td>
-                                                    <td>Obat jadi<br>Amoxicillin<br>10 tablet<br>3 x sehari 1 tab<br>Obat satuan</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                                            @if(isset($hasilfisik))
+                                                                @foreach($hasilfisik as $val)
+                                                                    <tr>
+                                                                        <td>{{date('d-m-Y',strtotime($val->tgl))}}</td>
+                                                                        <td>{{$val->tinggi_bdn}}</td>
+                                                                        <td>{{$val->berat_bdn}}</td>
+                                                                        <td>{{$val->tek_darah}}</td>
+                                                                        <td>{{$val->nadi}}</td>
+                                                                        <td>{{$val->rr}}</td>
+                                                                        <td>{{$val->suhu}}</td>
+                                                                        <td>{{$val->spo2}}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endif
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <!-- /.box -->
                                     </div>
                                 </div>
+                                <!-- /.box-body -->
                             </div>
+                            <!-- /.col -->
                         </div>
                         <!-- /.row -->
                     </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="ceklab">
+                        <div class="row">
+                            <!-- /.col -->
+                            <div class="col-md-12">
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="box-group" id="accordion">
+                                        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                                        <div class="panel box box-warning">
+                                            <div id="collapseOne" class="panel-collapse collapse in">
+                                                <div class="box-body">
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body">
+                                                        {{--<form action="{{route('input-a')}}" method="post" id="jenis_kadar">@csrf--}}
+                                                        {{--<input type="hidden" name="id_pasien" value="{{$pasien->id_pasien}}">--}}
+                                                        {{--</form>--}}
+                                                        <table id="example2" class="table table-bordered table-responsive table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Tanggal Periksa</th>
+                                                                <th>Nama</th>
+                                                                <th>Standar</th>
+                                                                <th>Hasil</th>
+                                                                <th>Satuan</th>
+                                                                <th>Keterangan</th>
+                                                            </tr>
+                                                            </thead>
+                                                            @if(isset($hasillab))
+                                                                @foreach($hasillab as $lab)
+                                                                    <tr>
+                                                                        <td>{{date('d-m-Y',strtotime($lab->tgl))}}</td>
+                                                                        {{--                                                                        @foreach($terapitgl as $terapi)--}}
+                                                                        <td>{{$lab->nama_kadar}}</td>
+                                                                        <td>{{$lab->standart_kadar}}</td>
+                                                                        <td>{{$lab->hasil_kadar}}</td>
+                                                                        <td>{{$lab->satuan_kadar}}</td>
+                                                                        <td>{{$lab->keterangan}}</td>
+                                                                        {{--@endforeach--}}
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endif
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="diagnosa">
+                        <div class="row">
+                            <!-- /.col -->
+                            <div class="col-md-12">
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="box-group" id="accordion">
+                                        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                                        <div class="panel box box-warning">
+                                            <div id="collapseOne" class="panel-collapse collapse in">
+                                                <div class="box-body">
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body">
+                                                        {{--<form action="{{route('input-a')}}" method="post" id="jenis_kadar">@csrf--}}
+                                                        {{--<input type="hidden" name="id_pasien" value="{{$pasien->id_pasien}}">--}}
+                                                        {{--</form>--}}
+                                                        <table id="example3" class="table table-bordered table-responsive table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Tanggal Periksa</th>
+                                                                <th>Keluhan</th>
+                                                                <th>Diagnosa</th>
+                                                            </tr>
+                                                            </thead>
+                                                            @if(isset($hasilrm))
+                                                                @foreach($hasilrm as $rm)
+                                                                <tr>
+                                                                    <td>{{date('d-m-Y',strtotime($rm->tgl))}}</td>
+                                                                    <td>{{$rm->keluhan}}</td>
+                                                                    <td>{{$rm->diagnosa}}</td>
+                                                                </tr>
+                                                                @endforeach
+                                                            @endif
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="terapi">
+                        <div class="row">
+                            <!-- /.col -->
+                            <div class="col-md-12">
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="box-group" id="accordion">
+                                        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                                        <div class="panel box box-warning">
+                                            <div id="collapseOne" class="panel-collapse collapse in">
+                                                <div class="box-body">
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body">
+                                                        {{--<form action="{{route('input-a')}}" method="post" id="jenis_kadar">@csrf--}}
+                                                        {{--<input type="hidden" name="id_pasien" value="{{$pasien->id_pasien}}">--}}
+                                                        {{--</form>--}}
+                                                        <table id="example4" class="table table-bordered table-responsive table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Tgl Periksa</th>
+                                                                <th>Nama Obat</th>
+                                                                <th>Satuan Obat</th>
+                                                                <th>Jumlah Obat</th>
+                                                                <th>Aturan Pakai</th>
+                                                                <th>Keterangan</th>
+                                                            </tr>
+                                                            </thead>
+                                                            @if(isset($hasilterapi))
+                                                                @foreach($hasilterapi as $terapi)
+                                                                <tr>
+                                                                    <td>{{date('d-m-Y',strtotime($terapi->time->date))}}</td>
+                                                                    <td>{{$terapi->obat->nama_obat}}</td>
+                                                                    <td>{{$terapi->obat->satuan_obat}}</td>
+                                                                    <td>{{$terapi->jml_obat}}</td>
+                                                                    <td>{{$terapi->aturan_pakai}}</td>
+                                                                    <td>{{$terapi->keterangan}}</td>
+                                                                </tr>
+                                                                @endforeach
+                                                            @endif
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.tab-pane -->
+                    <!-- /.tab-pane -->
                 </div>
-                <!-- /.box -->
+                <!-- /.tab-content -->
             </div>
+            <!-- /.nav-tabs-custom -->
         </div>
+        <!-- /.col -->
     </section>
-    <!-- /.content -->
     <!-- SlimScroll -->
     <script src="{{asset('AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
     <!-- FastClick -->
@@ -120,16 +262,31 @@
     <script src="{{asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
     <script>
-        $(function () {
+        jQuery(document).ready(function ($) {
             $('#example1').DataTable()
-            $('#example2').DataTable({
-                'paging'      : true,
-                'lengthChange': false,
-                'searching'   : false,
-                'ordering'    : true,
-                'info'        : true,
-                'autoWidth'   : false
-            })
+            $('#example2').DataTable()
+            $('#example3').DataTable()
+            $('#example4').DataTable()
+        });
+    </script>
+    {{--<script>--}}
+        {{--$(function () {--}}
+            {{--$('#example1').DataTable()--}}
+            {{--$('#example2').DataTable({--}}
+                {{--'paging'      : true,--}}
+                {{--'lengthChange': false,--}}
+                {{--'searching'   : false,--}}
+                {{--'ordering'    : true,--}}
+                {{--'info'        : true,--}}
+                {{--'autoWidth'   : false--}}
+            {{--})--}}
+        {{--})--}}
+    {{--</script>--}}
+    <!-- /.content -->
+    <script>
+        $(function() {
+            //Initialize Select2 Elements
+            $('.select2').select2()
         })
     </script>
 @endsection

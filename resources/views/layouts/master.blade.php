@@ -160,26 +160,26 @@
                                     <small>Member since Nov. 2018</small>
                                 </p>
                             </li>
-                            <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
-                            </li>
+                            {{--<!-- Menu Body -->--}}
+                            {{--<li class="user-body">--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-xs-4 text-center">--}}
+                                        {{--<a href="#">Followers</a>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-xs-4 text-center">--}}
+                                        {{--<a href="#">Sales</a>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-xs-4 text-center">--}}
+                                        {{--<a href="#">Friends</a>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<!-- /.row -->--}}
+                            {{--</li>--}}
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>
+                                {{--<div class="pull-left">--}}
+                                    {{--<a href="#" class="btn btn-default btn-flat">Profile</a>--}}
+                                {{--</div>--}}
                                 <div class="pull-right">
                                     <a class="btn btn-default btn-flat" href="{{route('logout')}}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">Sign Out</a>
@@ -232,9 +232,8 @@
                 @role('admin')
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="{{url('/home')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-                <li class="#"><a href="{{url('antrian')}}"><i class="fa fa-link"></i> <span>Antrian</span></a></li>
-                <li><a href="#"><i class="fa fa-pencil"></i> <span>Rekam Medis</span></a></li>
+                <li class="active"><a href="{{url('poli')}}"><i class="fa fa-dashboard"></i> <span>Data Poli</span></a></li>
+                <li class="#"><a href="{{url('obat')}}"><i class="fa fa-link"></i> <span>Data Obat</span></a></li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Data Klinik</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -242,8 +241,6 @@
                     <ul class="treeview-menu">
                         <li><a href="{{url('dokter')}}">Data Dokter</a></li>
                         <li><a href="{{url('pegawai')}}">Data Pegawai</a></li>
-                        <li><a href="{{url('obat')}}">Data Obat</a></li>
-                        <li><a href="{{url('poli')}}">Data Poli</a></li>
                         <li><a href="{{url('jadwalklinik')}}">Data Jadwal Klinik</a></li>
                         <li><a href="{{url('jadwal')}}">Data Jadwal Dokter</a></li>
                     </ul>
@@ -254,11 +251,11 @@
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li class="active"><a href="{{url('home')}}"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
-                <li class="#"><a href="{{url('rm_pegawai/{antrian}')}}"><i class="fa fa-pencil"></i> <span>Input Rekam Medis</span></a></li>
+                <li class="#"><a href="{{url('input-antrian')}}"><i class="fa fa-pencil"></i> <span>Input Rekam Medis</span></a></li>
                 <li class="#"><a href="{{url('hasilallrm')}}"><i class="fa fa-file-text"></i> <span> Hasil Rekam Medis</span></a></li>
-                <li class="#"><a href="{{url('pasien')}}"><i class="fa fa-link"></i> <span>Data Pasien</span></a></li>
+                {{--<li class="#"><a href="{{url('pasien')}}"><i class="fa fa-link"></i> <span>Data Pasien</span></a></li>--}}
                 <li class="#"><a href="{{url('dokter')}}"><i class="fa fa-link"></i> <span>Data Dokter</span></a></li>
-                <li class="#"><a href="{{url('jadwal')}}"><i class="fa fa-link"></i> <span>Jadwal</span></a></li>
+                {{--<li class="#"><a href="{{url('jadwal')}}"><i class="fa fa-link"></i> <span>Jadwal</span></a></li>--}}
                 @endrole
 
                 @role('user_dokter')
@@ -267,7 +264,7 @@
                 <li class="active"><a href="{{url('jadwal')}}"><i class="fa fa-dashboard"></i> <span>Home</span></a></li>
                 <li class="#"><a href="{{url('rm_dokter/{antrian}')}}"><i class="fa fa-pencil"></i> <span>Input Rekam Medis</span></a></li>
                 <li class="#"><a href="{{url('hasilallrm')}}"><i class="fa fa-file-text"></i> <span> Hasil Rekam Medis</span></a></li>
-                <li class="#"><a href="{{url('pasien')}}"><i class="fa fa-link"></i> <span>Data Pasien</span></a></li>
+                {{--<li class="#"><a href="{{url('pasien')}}"><i class="fa fa-link"></i> <span>Data Pasien</span></a></li>--}}
                 <li class="#"><a href="{{url('obat')}}"><i class="fa fa-link"></i> <span>Daftar Obat</span></a></li>
                 @endrole
             </ul>
@@ -310,78 +307,6 @@
         <strong>Copyright &copy; 2018 <a href="#">Company</a>.</strong> All rights reserved.
     </footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Create the tabs -->
-        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <!-- Home tab content -->
-            <div class="tab-pane active" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:;">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:;">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="pull-right-container">
-                    <span class="label label-danger pull-right">70%</span>
-                  </span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-            </div>
-            <!-- /.tab-pane -->
-            <!-- Stats tab content -->
-            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-            <!-- /.tab-pane -->
-            <!-- Settings tab content -->
-            <div class="tab-pane" id="control-sidebar-settings-tab">
-                <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Some information about this general settings option
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-                </form>
-            </div>
-            <!-- /.tab-pane -->
-        </div>
-    </aside>
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
     immediately after the control sidebar -->
