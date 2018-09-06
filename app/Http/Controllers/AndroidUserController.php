@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pasien;
+use App\StatusAntarObat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -183,13 +184,37 @@ class AndroidUserController extends Controller
         return $data->status_cek;
     }
 
-//    public function statusAntarObat(){
-//        $data = DB::table('status_kirim_obat')->first();
-//        if(sizeof($data)==0){
-//            return self::KLINIK_TUTUP;
-//        }
-//        return $data->status_obat;
-//    }
+   public function statusAntarObat(Request $request){
+
+        $update = DB::table('status_kirim_obat')
+            ->where('id_pasien', $request->idPasien)
+            ->update([
+                "status_obat"    => 2
+            ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Obat Selesai Diantar'
+        ]);
+    }
+
+   public function checkStatus(Request $request){
+
+        $pasien = DB::table('pasien as p')
+            ->select(['p.*','s.status_obat'])
+            ->where('p.id_pasien', $request->idPasien)
+            ->leftJoin('status_kirim_obat as s','s.id_pasien','p.id_pasien')
+            ->first();
+
+        if($pasien->status_obat == null){
+            $pasien->status_obat = 0;
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => $pasien
+        ]);
+    }
 
     public function cekAntriDiPoliLain($id_pasien, $id_poli){
         $data = DB::table('antrian')

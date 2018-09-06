@@ -53,6 +53,8 @@ Route::get('/hasilrm/{id}','RMController@getViewHasilRm')->name('hasilrm');
 
 Route::get('/hasilallrm', 'RMController@getViewHasil')->name('hasilallrm');
 
+Route::get('/hasilallrm/statusAntarObat/{id}', 'RMController@statusAntarObat')->name('statusAntarObat');
+
 Route::get('/tambahdaftar', function(){
     return view('pegawai.tambah_daftar');
 })->name('tambahdaftar');

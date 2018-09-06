@@ -63,13 +63,13 @@
                                 </td>
                                 <td width="30%">
                                     <div class="col col-sm-4" style="padding-left: 0px; margin: 10px 0 10px 0">
-                                        <a href="{{route('hasilrm', ['id'=>$pasien->id_pasien])}}" type="submit" class="btn bg-maroon " style="width: 100%; height: 100%; text-align: center">Antar</a>
+                                        <a href="{{route('statusAntarObat', ['id'=> $pasien->id_pasien])}}" type="submit" class="btn <?php if($pasien->status_obat != null) echo "disabled" ?> bg-maroon " style="width: 100%; height: 100%; text-align: center">Antar</a>
                                     </div>
                                     <div class="col col-sm-4" style="padding-left: 0px; margin: 10px 0 10px 0">
-                                        <a href="{{route('grafik', ['id'=>$pasien->id_pasien])}}" type="submit" class="btn disabled btn-warning " style="width: 100%; height: 100%; text-align: center">Proses</a>
+                                        <a href="#" type="submit" class="btn <?php if($pasien->status_obat != 1) echo "disabled" ?> btn-warning " style="width: 100%; height: 100%; text-align: center">Proses</a>
                                     </div>
                                     <div class="col col-sm-4" style="padding-left: 0px; margin: 10px 0 10px 0">
-                                        <a href="{{route('grafik', ['id'=>$pasien->id_pasien])}}" type="submit" class="btn disabled btn-success " style="width: 100%; height: 100%; text-align: center">Selesai</a>
+                                        <a href="#" type="submit" class="btn <?php if($pasien->status_obat != 2) echo "disabled" ?> btn-success " style="width: 100%; height: 100%; text-align: center">Selesai</a>
                                     </div>
                                 </td>
                             </tr>

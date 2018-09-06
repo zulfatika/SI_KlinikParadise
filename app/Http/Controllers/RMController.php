@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Antrian;
 use App\RekamMedis;
 use App\ResepObat;
+use App\StatusAntarObat;
 use App\StandarCekLab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +41,8 @@ class RMController extends Controller
 
     public function getViewHasil(){
         $pasien = DB::table('pasien as p')
+            ->select(['p.*','s.status_obat'])
+            ->leftJoin('status_kirim_obat as s','s.id_pasien','p.id_pasien')
             ->get();
 
         return view('pegawai/hasil_allrm')
@@ -112,14 +115,16 @@ class RMController extends Controller
         return $data_obat;
     }
 
-//    public function statusAntarObat()
-//    {
-//        $data = DB::table('status_kirim_obat')->first();
-//        if (sizeof($data) == 0) {
-//            return self::KLINIK_TUTUP;
-//        }
-//        return $data->status_obat;
-//    }
+       public function statusAntarObat($id)
+       {
+            $status = new StatusAntarObat;
+            $status->status_obat = 1;
+            $status->id_pasien = $id;
+            $status->save();
+
+            return redirect()->back();
+       }
+
 
     /**
      * Show the form for creating a new resource.

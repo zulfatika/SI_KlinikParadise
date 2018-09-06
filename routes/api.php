@@ -42,3 +42,7 @@ Route::post('antrianByUserId', 'AndroidUserController@antiranAfterAdd');
 
 Route::post('deleteAntrian', 'AndroidUserController@deleteAntrian');
 
+Route::post('statusAntarObat', 'AndroidUserController@statusAntarObat');
+
+Route::post('checkStatus', 'AndroidUserController@checkStatus');
+
